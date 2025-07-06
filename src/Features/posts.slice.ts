@@ -26,11 +26,7 @@ export const getPosts = createAsyncThunk('posts/getPosts', async (_, { getState 
 export const postslice = createSlice({
     name: 'posts',
     initialState,
-    reducers: {
-        //     logout: (state) => {
-        //   state.token = null;
-        //   localStorage.removeItem("token");
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder.addCase(getPosts.fulfilled, (state, action) => {
             console.log(state, action);
