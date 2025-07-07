@@ -10,14 +10,12 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useFormik } from 'formik';
-import { useAppDispatsh } from "@/hooks/Store.hooks";
+import { useAppDispatch } from "@/hooks/Store.hooks";
 import { SignUp } from "@/Features/user.slice";
 
 export default function page() {
   const router = useRouter()
-  const dispatsh = useAppDispatsh()
-
-
+  const dispatsh = useAppDispatch()
 
   const formik = useFormik({
     initialValues: {
@@ -53,8 +51,6 @@ export default function page() {
       label: 'Female',
     },
   ];
-
-
 
 
   return <>

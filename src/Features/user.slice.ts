@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 
 const initialState: UserState = {
   token:
-    localStorage.getItem("token")
+    null
 }
 
 export let login = createAsyncThunk('user/login', async (values: { email: string, password: string }) => {
@@ -36,7 +36,10 @@ const userSlice = createSlice({
     logout: (state) => {
       state.token = null;
       localStorage.removeItem("token");
-    }
+    },
+    setToken: (state, action) => {
+    state.token = action.payload;
+  }
   },
   extraReducers(builder) {
     builder.addCase(login.fulfilled, (state, action) => {
@@ -58,4 +61,4 @@ const userSlice = createSlice({
 })
 
 export const userReducer = userSlice.reducer
-export const { logout } = userSlice.actions;
+export const {setToken ,logout } = userSlice.actions;

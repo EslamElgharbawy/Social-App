@@ -9,11 +9,11 @@ import {
 import { useRouter } from 'next/navigation';
 import { useFormik } from 'formik';
 import { login } from '@/Features/user.slice';
-import { useAppDispatsh } from '@/hooks/Store.hooks';
+import { useAppDispatch } from '@/hooks/Store.hooks';
 
 export default function page() {
     const router = useRouter()
-    const dispatsh = useAppDispatsh()
+    const dispatsh = useAppDispatch()
     const formik = useFormik({
         initialValues: {
             email: "",

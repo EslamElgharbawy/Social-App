@@ -1,10 +1,11 @@
+'use client'
 import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import { useAppDispatsh } from '@/hooks/Store.hooks';
+import { useAppDispatch } from '@/hooks/Store.hooks';
 import { logout } from '@/Features/user.slice';
 
 export default function Navbar() {
-    const dispatch = useAppDispatsh()
+    const dispatch = useAppDispatch()
     const handleLogout = () => {
         dispatch(logout());
         window.location.href = '/Login';

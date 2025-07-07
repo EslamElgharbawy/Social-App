@@ -1,11 +1,33 @@
+'use client'
 import React from 'react';
-import { Box, Avatar, Typography, List, ListItemButton, ListItemIcon, ListItemText, Divider } from '@mui/material';
+import {
+  Box,
+  Avatar,
+  Typography,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Divider
+} from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
 import MessageIcon from '@mui/icons-material/Message';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import Cover from '@/assets/images/Cover.jpg';
+import { usePathname, useRouter } from 'next/navigation';
 
 const UserCard = () => {
+  const router = useRouter();
+  const pathName = usePathname();
+
+  const NavItems = [
+    { key: "home", path: "/", icon: <HomeIcon />, label: "Home" },
+    { key: "profile", path: "/Profile", icon: <PersonIcon />, label: "Profile" },
+    { key: "messages", path: "/Messages", icon: <MessageIcon />, label: "Messages" },
+    { key: "notifications", path: "/Notifications", icon: <NotificationsIcon />, label: "Notifications" }
+  ];
+
   return (
     <Box
       sx={{
@@ -20,7 +42,7 @@ const UserCard = () => {
     >
       <Box
         component="img"
-        src="https://placehold.co/291x72"
+        src={Cover.src}
         alt="cover"
         sx={{ width: '100%', height: 72, objectFit: 'cover' }}
       />
@@ -48,45 +70,33 @@ const UserCard = () => {
 
       <Box sx={{ position: 'absolute', top: 206, left: 23 }}>
         <List sx={{ width: 235 }}>
-          <ListItemButton selected>
-            <ListItemIcon>
-              <HomeIcon sx={{ color: '#0C1024' }} />
-            </ListItemIcon>
-            <ListItemText
-              primary="Home"
-              primaryTypographyProps={{ fontSize: 14, fontWeight: 500, color: '#0C1024' }}
-            />
-          </ListItemButton>
-          <Divider />
-          <ListItemButton>
-            <ListItemIcon>
-              <PersonIcon sx={{ color: '#4B5669' }} />
-            </ListItemIcon>
-            <ListItemText
-              primary="Profile"
-              primaryTypographyProps={{ fontSize: 14, fontWeight: 500, color: '#4B5669' }}
-            />
-          </ListItemButton>
-          <Divider />
-          <ListItemButton>
-            <ListItemIcon>
-              <MessageIcon sx={{ color: '#4B5669' }} />
-            </ListItemIcon>
-            <ListItemText
-              primary="Messages"
-              primaryTypographyProps={{ fontSize: 14, fontWeight: 500, color: '#4B5669' }}
-            />
-          </ListItemButton>
-          <Divider />
-          <ListItemButton>
-            <ListItemIcon>
-              <NotificationsIcon sx={{ color: '#4B5669' }} />
-            </ListItemIcon>
-            <ListItemText
-              primary="Notifications"
-              primaryTypographyProps={{ fontSize: 14, fontWeight: 500, color: '#4B5669' }}
-            />
-          </ListItemButton>
+          {NavItems.map((item, index) => {
+            const isSelected = pathName === item.path;
+
+            return (
+              <Box key={item.key}>
+                <ListItemButton
+                  selected={isSelected}
+                  onClick={() => router.push(item.path)}
+                >
+                  <ListItemIcon>
+                    {React.cloneElement(item.icon, {
+                      sx: { color: isSelected ? '#0C1024' : '#4B5669' }
+                    })}
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={item.label}
+                    primaryTypographyProps={{
+                      fontSize: 14,
+                      fontWeight: 500,
+                      color: isSelected ? '#0C1024' : '#4B5669'
+                    }}
+                  />
+                </ListItemButton>
+                {index !== NavItems.length - 1 && <Divider />}
+              </Box>
+            );
+          })}
         </List>
       </Box>
     </Box>

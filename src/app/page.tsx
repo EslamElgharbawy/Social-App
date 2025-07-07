@@ -11,37 +11,46 @@ import CreatePostCard from '@/components/CreatePostCard/CreatePostCard';
 import Footer from '@/components/Footer/Footer';
 import { useEffect } from 'react';
 import { getPosts } from '@/Features/posts.slice';
-import { useAppDispatsh, useAppSelector } from '@/hooks/Store.hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks/Store.hooks';
 import Loading from '@/components/Loading/Loading';
 import Navbar from '@/components/Navbar/Navbar';
 import UserCard from '@/components/UserCard/UserCard';
 import { useRouter } from 'next/navigation';
+import { setToken } from '@/Features/user.slice';
 export default function Home() {
 
   let { posts } = useAppSelector((store) => store.postReducer)
-  const dispatch = useAppDispatsh()
+  const dispatch = useAppDispatch()
   const router = useRouter();
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
       router.push('/Login')
     }
     dispatch(getPosts())
+    dispatch(setToken(token));
+
   }, [])
+
 
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: '#FAFBFF', display: 'flex', flexDirection: 'column' }}>
-      <Navbar />
-
+    <Navbar/>
       {/* Content placeholder */}
       <Grid container sx={{ mx: { xs: 1, md: 5 }, py: 3, my: { xs: 0, md: 8 } }}>
+        {/* Sidebar */}
         <Grid size={3} sx={{ display: { xs: 'none', md: 'block' } }}>
           <UserCard />
         </Grid>
+
+        {/* Main Content */}
         <Grid size={{ xs: 12, md: 6 }} >
           <CreatePostCard />
           {posts ? posts.map((post) => <PostCard key={post._id} postInfo={post} />) : <Loading />}
         </Grid>
+
+        {/* Suggestions */}
         <Grid size={3} sx={{ pl: 5, display: { xs: 'none', md: 'block' } }} >
           <SuggestedFriendsCard />
           <Footer />
@@ -62,4 +71,5 @@ export default function Home() {
       </Paper>
     </Box>
   );
+
 }
