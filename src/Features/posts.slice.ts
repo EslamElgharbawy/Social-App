@@ -9,7 +9,7 @@ const initialState: PostState = {
 
 export const getPosts = createAsyncThunk('posts/getPosts', async (_, { getState }) => {
     const state: any = getState()
-    const token = state.userReducer.token
+    const token = state.userReducer.token ||localStorage.getItem('token')
 
     const options = {
         url: "https://linked-posts.routemisr.com/posts?limit=51",

@@ -38,7 +38,9 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
-            <ReduxProvider>{children}</ReduxProvider>
+            <ReduxProvider>
+              {children}
+              </ReduxProvider>
                     <Toaster position="top-right" />
           </ThemeProvider>
         </AppRouterCacheProvider>

@@ -1,4 +1,4 @@
-import { Avatar, Box, Divider, Stack, Typography } from '@mui/material';
+import { Avatar, Box, Button, Divider, Stack, Typography } from '@mui/material';
 
 export default function Profile() {
   return <>
@@ -19,23 +19,10 @@ export default function Profile() {
         />
         <Box position="relative" height={52}>
           <Stack direction="row" spacing={1} alignItems="center">
-            <Typography variant="h6" fontWeight={600} color="#27364B">
+            <Typography variant="h6" fontWeight={600}  color="#27364B">
               Robert Fox
             </Typography>
-            <Typography variant="body2" color="#5D6778">
-              /
-            </Typography>
-            <Typography fontSize={12} color="#5D6778">
-              @robert
-            </Typography>
           </Stack>
-          <Typography
-            variant="body2"
-            color="#4B5669"
-            sx={{ position: 'absolute', top: 37 }}
-          >
-            Software Engineer
-          </Typography>
         </Box>
       </Stack>
 
@@ -45,21 +32,15 @@ export default function Profile() {
           position: 'absolute',
           top: 168,
           width: '100%',
-          borderColor: '#F1F4F9',
+          borderColor: '#C8D0E1',
         }}
       />
 
       {/* Tabs */}
-      <Stack direction="row" spacing={4} position="absolute" top={188} left={40}>
-        <Typography fontWeight={500} fontSize={14} color="#0C1024">
+      <Stack direction="row" spacing={4} position="absolute" top={178} left={40}>
+        <Button sx={{ fontWeight: 700, fontSize: 17, textTransform: "initial", color: "#0C1024" }}>
           My Posts
-        </Typography>
-        <Typography fontWeight={500} fontSize={14} color="#5D6778">
-          Saved Posts
-        </Typography>
-        <Typography fontWeight={500} fontSize={14} color="#5D6778">
-          Settings
-        </Typography>
+        </Button>
       </Stack>
 
       {/* Stats */}

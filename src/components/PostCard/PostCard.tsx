@@ -9,6 +9,7 @@ import {
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Post } from '@/types/posts.type';
 import Image from 'next/image';
 import commentImage from '@/assets/images/Comment.svg';
@@ -110,17 +111,9 @@ const PostCard = ({ postInfo }: { postInfo: Post }) => {
             },
           }}
         >
-          <Image
-            src={postInfo.image}
-            alt="Post image"
-            width={700}
-            height={500}
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-            }}
-          />
+          {postInfo.image ? (
+            <img src={postInfo.image} alt="Post image" width={700} height={500} />
+          ) : ""}
         </Box>
 
 
@@ -164,15 +157,15 @@ const PostCard = ({ postInfo }: { postInfo: Post }) => {
         </Button>
         <Button>
           <Box
-          component={'img'}
-          src={LikeImage.src}
-          alt="Like"
-          sx={{
-            width: '24px',
-            height: '24px',
-            objectFit: 'cover',
-          }}
-        />
+            component={'img'}
+            src={LikeImage.src}
+            alt="Like"
+            sx={{
+              width: '24px',
+              height: '24px',
+              objectFit: 'cover',
+            }}
+          />
         </Button>
       </Box>
     </Box>
