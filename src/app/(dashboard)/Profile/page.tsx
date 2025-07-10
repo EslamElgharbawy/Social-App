@@ -1,15 +1,19 @@
-import { Avatar, Box, Button, Divider, Stack, Typography } from '@mui/material';
+import Footer from '@/components/Footer/Footer';
+import MyPostCard from '@/components/MyPostCard/MyPostCard';
+import SuggestedFriendsCard from '@/components/SuggestedFriends/SuggestedFriends';
+import { Avatar, Box, Button, Divider, Grid, Stack, Typography } from '@mui/material';
 
 export default function Profile() {
   return <>
 
     <Box
-      width={934}
+      width={'100%'}
       height={233}
       position="relative"
       bgcolor="white"
       borderRadius={2}
       border="1px solid #ECF0F5"
+      mb={5}
     >
       {/* Header Section */}
       <Stack direction="row" spacing={3} position="absolute" top={32} left={44}>
@@ -19,7 +23,7 @@ export default function Profile() {
         />
         <Box position="relative" height={52}>
           <Stack direction="row" spacing={1} alignItems="center">
-            <Typography variant="h6" fontWeight={600}  color="#27364B">
+            <Typography variant="h6" fontWeight={600} color="#27364B">
               Robert Fox
             </Typography>
           </Stack>
@@ -44,7 +48,7 @@ export default function Profile() {
       </Stack>
 
       {/* Stats */}
-      <Stack direction="row" spacing={6} position="absolute" top={54} left={683}>
+      <Stack direction="row" spacing={6} position="absolute" top={54} left={700}>
         {[
           { label: 'Posts', value: 12 },
           { label: 'Followers', value: 207 },
@@ -61,12 +65,16 @@ export default function Profile() {
         ))}
       </Stack>
     </Box>
-    {/* <Grid container sx={{ mx: { xs: 1, md: 5 }, py: 3, my: { xs: 0, md: 8 } }}>
-      <Grid size={3} sx={{ pl: 5, display: { xs: 'none', md: 'block' } }} >
-            <SuggestedFriendsCard />
-            <Footer />
-          </Grid>
-    </Grid> */}
+    <Box sx={{ display: "flex", gap:15 }}>
+      <Box>
+        <MyPostCard />
+      </Box>
+      <Box>
+        <SuggestedFriendsCard />
+        <Footer />
+      </Box>
+    </Box>
+
 
 
   </>

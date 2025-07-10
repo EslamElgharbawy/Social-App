@@ -63,9 +63,6 @@ const UserCard = () => {
         <Typography variant="subtitle1" fontWeight={500} color="#0C1024">
           Robert Fox
         </Typography>
-        <Typography variant="caption" color="#27364B">
-          Software Engineer
-        </Typography>
       </Box>
 
       <Box sx={{ position: 'absolute', top: 206, left: 23 }}>

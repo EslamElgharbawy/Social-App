@@ -1,14 +1,14 @@
 import React from 'react';
 import { Box, Typography, Stack } from '@mui/material';
 
-const Footer = () => {
+const Footer = ({ fixed = false }: { fixed?: boolean }) => {
   return (
     <Box
       sx={{
         width: "100%",
         height: 42,
-        position: 'fixed',
-        bottom:150,
+        position: fixed ? 'fixed' : 'relative',
+        bottom: fixed ? 130 : 'auto',
         color: '#838B98',
         fontSize: 12,
         fontFamily: 'Inter, sans-serif',
