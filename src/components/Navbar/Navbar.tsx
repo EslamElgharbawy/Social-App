@@ -1,10 +1,11 @@
 'use client'
-import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
+import { AppBar, Avatar, Box, Button, Toolbar, Typography } from '@mui/material';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import { useAppDispatch } from '@/hooks/Store.hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks/Store.hooks';
 import { logout } from '@/Features/user.slice';
 
 export default function Navbar() {
+      let { user } = useAppSelector((store) => store.UserInfoReducer)
     const dispatch = useAppDispatch()
     const handleLogout = () => {
         dispatch(logout());
@@ -75,7 +76,7 @@ export default function Navbar() {
                     </Typography>
                 </Box>
                 <Button onClick={handleLogout} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1, color: '#27364B' }}>
-                    <Typography fontWeight={600} fontSize={18} sx={{ fontFamily: 'Inter, sans-serif', textTransform: 'initial' }}>
+                    <Typography fontWeight={600} fontSize={18} sx={{ fontFamily: 'Inter, sans-serif', textTransform: 'initial',pr:1 }}>
                         Logout
                     </Typography>
                     <Box
@@ -87,7 +88,17 @@ export default function Navbar() {
                             justifyContent: 'center',
                         }}
                     >
-                        <PersonOutlineOutlinedIcon sx={{ fontSize: 30 }} />
+                        <Avatar
+                            src={user?.photo}
+                            sx={{
+                                width: 40,
+                                height: 40,
+                                border: '1px solid white',
+                                bgcolor: 'white',
+                                position: 'absolute',
+                                zIndex: 50
+                            }}
+                        />
                     </Box>
 
                 </Button>

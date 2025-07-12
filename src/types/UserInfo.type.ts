@@ -1,5 +1,6 @@
 export type UserInfoState = {
-    user: null  
+    user: null | LoggedInUser
+    
 }
 
 export interface LoggedInUser  {

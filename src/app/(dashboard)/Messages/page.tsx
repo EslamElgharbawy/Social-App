@@ -5,8 +5,14 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import SendIcon from '@mui/icons-material/Send';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import NewMessage from '@/assets/images/Write.svg'
+import BessieCooper from '@/assets/images/Img.jpg'
+import ThomasBaker from '@/assets/images/Img2.png'
+import DanielBrown from '@/assets/images/Img3.jpg'
+import RonaldRichards from '@/assets/images/Img4.jpg'
+import { useAppSelector } from '@/hooks/Store.hooks';
 
 export default function Messages() {
+  let { user } = useAppSelector((store) => store.UserInfoReducer)
   return (
     <Box
       sx={{
@@ -38,17 +44,24 @@ export default function Messages() {
         {[{
           name: 'Bessie Cooper',
           msg: "Hi, Robert. I'm facing some chall ...",
+          src: BessieCooper,
           time: 'Online',
           active: true
         }, {
           name: 'Thomas Baker',
           msg: "I have a job interview coming up ...",
+          src: ThomasBaker,
+
         }, {
           name: 'Daniel Brown',
           msg: "Not much, just planning to relax ...",
+          src: DanielBrown,
+
         }, {
           name: 'Ronald Richards',
           msg: "I'm stuck on this bug in the code ...",
+          src: RonaldRichards,
+
         }].map((conv, idx) => (
           <Stack
             key={idx}
@@ -64,7 +77,7 @@ export default function Messages() {
             }}
           >
             <Box sx={{ position: 'relative' }}>
-              <Avatar src="https://placehold.co/48x48" sx={{ width: 48, height: 48 }} />
+              <Avatar src={conv.src.src} sx={{ width: 48, height: 48 }} />
               <FiberManualRecordIcon
                 sx={{
                   width: 8,
@@ -90,9 +103,9 @@ export default function Messages() {
         ))}
         <Divider sx={{ position: 'absolute', bottom: 54, width: '100%', borderColor: '#ECF0F5' }} />
         <Button
-          sx={{ position: 'absolute', bottom: 10, width: '100%', px: 4, py: 1}}
+          sx={{ position: 'absolute', bottom: 10, width: '100%', px: 4, py: 1 }}
         >
-          <Box component={'img'} src={NewMessage.src} sx={{ color: '#27364B',pr:2 }}/>
+          <Box component={'img'} src={NewMessage.src} sx={{ color: '#27364B', pr: 2 }} />
           <Typography fontSize={14} fontWeight={400} color="#27364B">
             New Message
           </Typography>
@@ -149,7 +162,7 @@ export default function Messages() {
 
         {/* Message Input */}
         <Stack direction="row" alignItems="center" spacing={2} sx={{ position: 'absolute', bottom: 0, left: 16, width: 'calc(100% - 32px)' }}>
-          <Avatar src="https://placehold.co/48x48" sx={{ width: 48, height: 48 }} />
+          <Avatar src={user?.photo} sx={{ width: 48, height: 48 }} />
           <Box
             sx={{
               flex: 1,

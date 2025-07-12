@@ -7,13 +7,17 @@ import {
   Paper,
 } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import OliviaAnderson from '@/assets/images/Img8.jpg'
+import ThomasBaker from '@/assets/images/Img2.png'
+import LilyLee from '@/assets/images/Img9.jpg'
+import AndrewHarris from '@/assets/images/Img7.jpg'
 
 const SuggestedFriendsCard = ({ fixed = false }: { fixed?: boolean }) => {
   const friends = [
-    { name: 'Olivia Anderson', role: 'Financial Analyst', avatar: 'https://placehold.co/56x56' },
-    { name: 'Thomas Baker', role: 'Project Manager', avatar: 'https://placehold.co/56x56' },
-    { name: 'Lily Lee', role: 'Graphic Designer', avatar: 'https://placehold.co/56x56' },
-    { name: 'Andrew Harris', role: 'Data Scientist', avatar: 'https://placehold.co/56x56' },
+    { name: 'Olivia Anderson', role: 'Financial Analyst', src: OliviaAnderson },
+    { name: 'Thomas Baker', role: 'Project Manager', src: ThomasBaker },
+    { name: 'Lily Lee', role: 'Graphic Designer', src: LilyLee },
+    { name: 'Andrew Harris', role: 'Data Scientist', src: AndrewHarris },
   ];
 
   return (
@@ -74,7 +78,7 @@ const SuggestedFriendsCard = ({ fixed = false }: { fixed?: boolean }) => {
             }}
           >
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <Avatar src={friend.avatar} sx={{ width: 56, height: 56 }} />
+              <Avatar src={friend.src.src} sx={{ width: 56, height: 56 }} />
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                 <Typography
                   sx={{

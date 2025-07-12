@@ -30,7 +30,7 @@ const UserInfoSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(geUserInfo.fulfilled, (state, action) => {
-            console.log(state, action);
+            state.user = action.payload.user
 
         })
          builder.addCase(geUserInfo.rejected, (state, action) => {

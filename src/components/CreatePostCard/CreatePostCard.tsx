@@ -7,8 +7,11 @@ import {
     TextField,
 } from '@mui/material';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import { useAppSelector } from '@/hooks/Store.hooks';
 
 const CreatePostCard = () => {
+      let { user } = useAppSelector((store) => store.UserInfoReducer)
+    
     return (
         <Box
             sx={{
@@ -34,7 +37,7 @@ const CreatePostCard = () => {
                 }}
             >
                 <Avatar
-                    src="https://placehold.co/40x40"
+                    src={user?.photo}
                     sx={{ width: 40, height: 40 }}
                 />
                 <Box

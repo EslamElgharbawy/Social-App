@@ -1,25 +1,29 @@
 import Footer from '@/components/Footer/Footer';
 import SuggestedFriendsCard from '@/components/SuggestedFriends/SuggestedFriends';
 import { Avatar, Box, Divider, Stack, Typography, Paper } from '@mui/material';
+import BessieCooper from '@/assets/images/Img.jpg'
+import SamuelLee from '@/assets/images/Img5.jpg'
+import JosephRodriguez from '@/assets/images/Img6.jpg'
+
 
 const notifications = [
   {
     name: 'Bessie Cooper',
     message: 'start following you.',
     time: '10 minutes ago',
-    avatar: 'https://placehold.co/40x40',
+    avatar: BessieCooper,
   },
   {
     name: 'Samuel Lee',
     message: 'liked you post.',
     time: '1 hours ago',
-    avatar: 'https://placehold.co/40x40',
+    avatar: SamuelLee,
   },
   {
     name: 'Joseph Rodriguez',
     message: 'comment on your post.',
     time: 'yesterday',
-    avatar: 'https://placehold.co/40x40',
+    avatar: JosephRodriguez,
   },
 ];
 
@@ -94,7 +98,7 @@ export default function NotificationsCard() {
                   }}
                 >
                   <Stack direction="row" spacing={1} alignItems="center" sx={{ width: 292 }}>
-                    <Avatar src={noti.avatar} sx={{ width: 40, height: 40 }} />
+                    <Avatar src={noti.avatar.src} sx={{ width: 40, height: 40 }} />
                     <Typography fontSize={14} fontWeight={500} color="#0C1024">
                       {noti.name}
                     </Typography>

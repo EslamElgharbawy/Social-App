@@ -16,8 +16,10 @@ import MessageIcon from '@mui/icons-material/Message';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Cover from '@/assets/images/Cover.jpg';
 import { usePathname, useRouter } from 'next/navigation';
+import { useAppSelector } from '@/hooks/Store.hooks';
 
 const UserCard = () => {
+  let { user } = useAppSelector((store) => store.UserInfoReducer)
   const router = useRouter();
   const pathName = usePathname();
 
@@ -27,7 +29,6 @@ const UserCard = () => {
     { key: "messages", path: "/Messages", icon: <MessageIcon />, label: "Messages" },
     { key: "notifications", path: "/Notifications", icon: <NotificationsIcon />, label: "Notifications" }
   ];
-
   return (
     <Box
       sx={{
@@ -48,20 +49,22 @@ const UserCard = () => {
       />
 
       <Avatar
-        src="https://placehold.co/56x56"
+        src={user?.photo}
         sx={{
           width: 56,
           height: 56,
           border: '1px solid white',
+          bgcolor:'white',
           position: 'absolute',
           top: 44,
           left: 23,
+          zIndex:50
         }}
       />
 
       <Box sx={{ position: 'absolute', top: 124, left: 23 }}>
         <Typography variant="subtitle1" fontWeight={500} color="#0C1024">
-          Robert Fox
+          {user?.name}
         </Typography>
       </Box>
 

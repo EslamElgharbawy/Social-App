@@ -1,5 +1,4 @@
 'use client';
-
 import { Avatar, Box, BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
@@ -13,9 +12,11 @@ import { useAppDispatch, useAppSelector } from '@/hooks/Store.hooks';
 import Loading from '@/components/Loading/Loading';
 import { useRouter } from 'next/navigation';
 import { setToken } from '@/Features/user.slice';
+import { geUserInfo } from '@/Features/UserInfo.slice';
 export default function Home() {
 
   let { posts } = useAppSelector((store) => store.postReducer)
+
   const dispatch = useAppDispatch()
   const router = useRouter();
 
@@ -24,9 +25,9 @@ export default function Home() {
     if (!token) {
       router.push('/Login')
     }
+    dispatch(setToken(token))
+    dispatch(geUserInfo())
     dispatch(getPosts())
-    dispatch(setToken(token));
-
   }, [])
 
 

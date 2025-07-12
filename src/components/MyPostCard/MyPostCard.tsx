@@ -2,8 +2,10 @@ import { Box, Avatar, Typography, Divider, Stack, IconButton } from "@mui/materi
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import ShareIcon from "@mui/icons-material/Share";
+import { useAppSelector } from "@/hooks/Store.hooks";
 
 export default function MyPostCard() {
+    let { user } = useAppSelector((store) => store.UserInfoReducer)
   return (
     <Box
       sx={{
@@ -32,15 +34,12 @@ export default function MyPostCard() {
         {/* User Info */}
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
           <Avatar
-            src="https://placehold.co/56x56"
+            src={user?.photo}
             sx={{ width: 56, height: 56 }}
           />
           <Box>
             <Typography sx={{ fontSize: 14, fontWeight: 500, color: "#0C1024" }}>
-              Robert Fox
-            </Typography>
-            <Typography sx={{ fontSize: 12, fontWeight: 400, color: "#27364B" }}>
-              Software Engineer
+              {user?.name}
             </Typography>
           </Box>
         </Box>

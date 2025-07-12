@@ -1,11 +1,13 @@
+'use client'
 import Footer from '@/components/Footer/Footer';
 import MyPostCard from '@/components/MyPostCard/MyPostCard';
 import SuggestedFriendsCard from '@/components/SuggestedFriends/SuggestedFriends';
+import { useAppSelector } from '@/hooks/Store.hooks';
 import { Avatar, Box, Button, Divider, Grid, Stack, Typography } from '@mui/material';
 
 export default function Profile() {
+  let { user } = useAppSelector((store) => store.UserInfoReducer)
   return <>
-
     <Box
       width={'100%'}
       height={233}
@@ -18,13 +20,13 @@ export default function Profile() {
       {/* Header Section */}
       <Stack direction="row" spacing={3} position="absolute" top={32} left={44}>
         <Avatar
-          src="https://placehold.co/96x96"
+          src={user?.photo}
           sx={{ width: 96, height: 96, border: '2px solid white' }}
         />
         <Box position="relative" height={52}>
           <Stack direction="row" spacing={1} alignItems="center">
             <Typography variant="h6" fontWeight={600} color="#27364B">
-              Robert Fox
+              {user?.name}
             </Typography>
           </Stack>
         </Box>
