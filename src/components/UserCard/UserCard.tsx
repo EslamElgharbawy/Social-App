@@ -41,33 +41,35 @@ const UserCard = () => {
         position: 'fixed',
       }}
     >
+      {/*Cover image*/}
       <Box
         component="img"
         src={Cover.src}
         alt="cover"
         sx={{ width: '100%', height: 72, objectFit: 'cover' }}
       />
-
+      {/*Avatar*/}
       <Avatar
         src={user?.photo}
         sx={{
           width: 56,
           height: 56,
           border: '1px solid white',
-          bgcolor:'white',
+          bgcolor: 'white',
           position: 'absolute',
           top: 44,
           left: 23,
-          zIndex:50
+          zIndex: 50
         }}
       />
-
+      {/*Username*/}
       <Box sx={{ position: 'absolute', top: 124, left: 23 }}>
         <Typography variant="subtitle1" fontWeight={500} color="#0C1024">
           {user?.name}
         </Typography>
       </Box>
 
+      {/*Nav list*/}
       <Box sx={{ position: 'absolute', top: 206, left: 23 }}>
         <List sx={{ width: 235 }}>
           {NavItems.map((item, index) => {

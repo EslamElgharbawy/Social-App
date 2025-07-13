@@ -19,7 +19,7 @@ import CommentCard from '../CommentCard/CommentCard';
 import { useAppSelector } from '@/hooks/Store.hooks';
 dayjs.extend(relativeTime);
 
-const PostCard = ({ postInfo }: { postInfo: Post }) => {
+const PostCard = ({ postInfo, ShowAllComments = false }: { postInfo: Post, ShowAllComments: boolean }) => {
   let { user } = useAppSelector((store) => store.UserInfoReducer)
   return (
     <Box
@@ -197,15 +197,19 @@ const PostCard = ({ postInfo }: { postInfo: Post }) => {
 
         {/* Comments*/}
         <Box sx={{ width: '100%' }}>
-          {postInfo.comments.length > 0 && <CommentCard CommentInfo={postInfo.comments[0]} />}
+          {postInfo.comments.length > 0 && !ShowAllComments && <CommentCard CommentInfo={postInfo.comments[0]} />}
+          {postInfo.comments.length > 1 && ShowAllComments && postInfo.comments.map((comment) => <CommentCard key={postInfo._id} CommentInfo={comment} />)}
         </Box>
 
-        {/* More Comments*/}
-        <Button variant='contained' sx={{ my: 1, mx: 'auto', width: '100%' }}>
-          <Typography textTransform={'initial'}>
-            Show More Comments
-          </Typography>
-        </Button>
+        {!ShowAllComments && <>
+          {/* More Comments*/}
+          <Button href={`/Post/${postInfo._id}`} variant='contained' sx={{ my: 1, mx: 'auto', width: '100%' }}>
+            <Typography textTransform={'initial'}>
+              Show More Comments
+            </Typography>
+          </Button>
+        </>
+        }
 
         {/* CommentInput */}
         <Box
@@ -234,7 +238,7 @@ const PostCard = ({ postInfo }: { postInfo: Post }) => {
           />
         </Box>
       </Box>
-    </Box>
+    </Box >
   );
 };
 

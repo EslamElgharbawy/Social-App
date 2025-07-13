@@ -38,7 +38,8 @@ export default function Home() {
         {/* Main Feed */}
         <Grid size={{ xs: 12, md: 12 }} >
           <CreatePostCard />
-          {posts ? posts.map((post) => <PostCard key={post._id} postInfo={post} />) : <Loading />}
+          {posts ? 
+           posts.map((post) => <PostCard key={post._id} postInfo={post} ShowAllComments={false}/>) : <Loading />}
         </Grid>
       </Grid>
 

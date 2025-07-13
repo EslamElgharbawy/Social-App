@@ -1,5 +1,6 @@
 export type PostState = {
-    posts: null | Post[]
+    posts: null | Post[],
+    postDetails: null | Post
 }
 
 
