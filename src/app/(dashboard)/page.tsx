@@ -16,6 +16,7 @@ import { geUserInfo } from '@/Features/UserInfo.slice';
 export default function Home() {
 
   let { posts } = useAppSelector((store) => store.postReducer)
+  let { user } = useAppSelector((store) => store.UserInfoReducer)
 
   const dispatch = useAppDispatch()
   const router = useRouter();
@@ -46,7 +47,7 @@ export default function Home() {
       {/* Bottom Navigation */}
       <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, display: { md: 'none', xs: 'block' } }} elevation={3}>
         <BottomNavigation showLabels>
-          <BottomNavigationAction label="Profile" icon={<Avatar src="https://placehold.co/20x20" sx={{ width: 20, height: 20 }} />} />
+          <BottomNavigationAction label="Profile" icon={<Avatar src={user?.photo} sx={{ width: 20, height: 20 }} />} />
           <BottomNavigationAction label="Alerts" icon={<NotificationsNoneIcon />} />
           <BottomNavigationAction label="Search" icon={<SearchIcon />} />
           <BottomNavigationAction label="Home" icon={<HomeIcon />} />
