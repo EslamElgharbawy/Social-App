@@ -43,7 +43,7 @@ export default function Messages() {
       <Box sx={{ position: 'relative', top: 67, left: 0, width: 327, height: 514 }}>
         {[{
           name: 'Bessie Cooper',
-          msg: "Hi, Robert. I'm facing some chall ...",
+          msg: `Hi, ${user?.name}. I'm facing some chall ...`,
           src: BessieCooper,
           time: 'Online',
           active: true
@@ -116,7 +116,7 @@ export default function Messages() {
       <Box sx={{ position: 'absolute', left: 360, top: 107, width: 542, height: 442 }}>
         {/* Message From Other */}
         <Stack direction="row" spacing={1} sx={{ position: 'absolute', top: 0 }}>
-          <Avatar src="https://placehold.co/32x32" sx={{ width: 32, height: 32 }} />
+          <Avatar src={BessieCooper.src} sx={{ width: 32, height: 32 }} />
           <Box
             sx={{
               bgcolor: '#F1F4F9',
@@ -132,7 +132,7 @@ export default function Messages() {
               Marketing Manager
             </Typography>
             <Typography fontSize={14} fontWeight={400} color="#27364B" lineHeight="24.5px">
-              Hi, Robert. I'm facing some challenges in optimizing my code for performance. Can you help?
+              Hi, {user?.name}. I'm facing some challenges in optimizing my code for performance. Can you help?
             </Typography>
             <Typography align="right" fontSize={12} fontWeight={400} color="#5D6778">
               12:45 PM

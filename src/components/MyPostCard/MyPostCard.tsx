@@ -1,15 +1,21 @@
-import { Box, Avatar, Typography, Divider, Stack, IconButton } from "@mui/material";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import ShareIcon from "@mui/icons-material/Share";
 import { useAppSelector } from "@/hooks/Store.hooks";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import ShareIcon from "@mui/icons-material/Share";
+import {
+  Avatar,
+  Box,
+  Divider,
+  IconButton,
+  Typography
+} from "@mui/material";
 
 export default function MyPostCard() {
-    let { user } = useAppSelector((store) => store.UserInfoReducer)
+  let { user } = useAppSelector((store) => store.UserInfoReducer);
   return (
     <Box
       sx={{
-        width: 582,
+        width: "100%",
         pt: 3,
         pb: 4,
         backgroundColor: "white",
@@ -25,7 +31,7 @@ export default function MyPostCard() {
       <Box
         sx={{
           width: "100%",
-          px: 4,
+          px: { xs: 2, sm: 4 }, 
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
@@ -33,23 +39,26 @@ export default function MyPostCard() {
       >
         {/* User Info */}
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-          <Avatar
-            src={user?.photo}
-            sx={{ width: 56, height: 56 }}
-          />
+          <Avatar src={user?.photo} sx={{ width: 56, height: 56 }} />
           <Box>
-            <Typography sx={{ fontSize: 14, fontWeight: 500, color: "#0C1024" }}>
+            <Typography
+              sx={{
+                fontSize: { xs: 15, sm: 17 },
+                fontWeight: 500,
+                color: "#0C1024",
+              }}
+            >
               {user?.name}
             </Typography>
           </Box>
         </Box>
 
-        {/* Actions */}
+        {/* Details */}
         <Box sx={{ textAlign: "right" }}>
           <IconButton size="small">
-            <MoreHorizIcon sx={{ fontSize: 20, color: "#5D6778" }} />
+            <MoreHorizIcon sx={{ fontSize: {xs:22,lg:25}, color: "#5D6778" }} />
           </IconButton>
-          <Typography sx={{ fontSize: 12, fontWeight: 400, color: "#707988" }}>
+          <Typography sx={{ fontSize: {xs:11,lg:12}, fontWeight: 400, color: "#707988" }}>
             3 days ago
           </Typography>
         </Box>
@@ -58,42 +67,46 @@ export default function MyPostCard() {
       <Divider sx={{ width: "100%", borderColor: "#F1F4F9" }} />
 
       {/* Content */}
-      <Box sx={{ px: 4, textAlign: "center" }}>
+      <Box sx={{ px: { xs: 2, sm: 4 }, textAlign: "center" }}>
         <Typography
           sx={{
-            fontSize: 14,
+            fontSize: { xs: 12, sm: 14 },
             fontWeight: 400,
             color: "#27364B",
             lineHeight: "24.5px",
-            maxWidth: 486,
           }}
         >
-          Received a lot of questions about breaking into the tech industry lately.
-          If you're starting out or looking to switch careers, feel free to connect with me.
-          I'm here to help and share insights! 🚀
+          Received a lot of questions about breaking into the tech industry
+          lately. If you're starting out or looking to switch careers, feel free
+          to connect with me. I'm here to help and share insights! 🚀
         </Typography>
       </Box>
 
       {/* Actions */}
       <Box
         sx={{
-          width: 518,
+          width: '100%', 
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
+          px:3
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
           <ChatBubbleOutlineIcon sx={{ fontSize: 20, color: "#5D6778" }} />
           <Typography
-            sx={{ fontSize: 14, fontWeight: 500, color: "#5D6778", lineHeight: "24.5px" }}
+            sx={{
+              fontSize: { xs: 12, sm: 14 },
+              fontWeight: 500,
+              color: "#5D6778",
+              lineHeight: "24.5px",
+            }}
           >
             Comment
           </Typography>
         </Box>
         <ShareIcon sx={{ fontSize: 20, color: "#5D6778" }} />
       </Box>
-      
     </Box>
   );
 }

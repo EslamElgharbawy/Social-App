@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Box,
   Typography,
@@ -7,33 +7,39 @@ import {
   Button,
   Avatar,
   OutlinedInput,
-} from '@mui/material';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import { Post } from '@/types/posts.type';
-import Image from 'next/image';
-import commentImage from '@/assets/images/Comment.svg';
-import LikeImage from '@/assets/images/Like.svg'
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import CommentCard from '../CommentCard/CommentCard';
-import { useAppSelector } from '@/hooks/Store.hooks';
+} from "@mui/material";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { Post } from "@/types/posts.type";
+import Image from "next/image";
+import commentImage from "@/assets/images/Comment.svg";
+import LikeImage from "@/assets/images/Like.svg";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import CommentCard from "../CommentCard/CommentCard";
+import { useAppSelector } from "@/hooks/Store.hooks";
 dayjs.extend(relativeTime);
 
-const PostCard = ({ postInfo, ShowAllComments = false }: { postInfo: Post, ShowAllComments: boolean }) => {
-  let { user } = useAppSelector((store) => store.UserInfoReducer)
+const PostCard = ({
+  postInfo,
+  ShowAllComments = false,
+}: {
+  postInfo: Post;
+  ShowAllComments?: boolean;
+}) => {
+  let { user } = useAppSelector((store) => store.UserInfoReducer);
   return (
     <Box
       sx={{
-        width: '100%',
-        p: '24px 0 ',
-        backgroundColor: 'white',
-        overflow: 'hidden',
+        width: "100%",
+        p: "24px 0 ",
+        backgroundColor: "white",
+        overflow: "hidden",
         borderRadius: 2,
-        border: '1px solid #ECF0F5',
-        fontFamily: 'Inter, sans-serif',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
+        border: "1px solid #ECF0F5",
+        fontFamily: "Inter, sans-serif",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
         gap: 3,
         mb: 3,
       }}
@@ -41,72 +47,84 @@ const PostCard = ({ postInfo, ShowAllComments = false }: { postInfo: Post, ShowA
       {/* Header */}
       <Box
         sx={{
-          width: '100%',
+          width: "100%",
           px: { xs: 2, md: 5 },
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
         }}
       >
         {/* Avatar + Info */}
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          <Image src={postInfo.user.photo} width={50} height={50} alt={postInfo.user.name} />
+        <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+          <Image
+            src={postInfo.user.photo}
+            width={50}
+            height={50}
+            alt={postInfo.user.name}
+          />
           <Box>
-            <Typography sx={{ fontSize: 17, fontWeight: 500, color: '#0C1024' }}>
+            <Typography
+              sx={{ fontSize: 17, fontWeight: 500, color: "#0C1024" }}
+            >
               {postInfo.user.name}
             </Typography>
-            <Typography sx={{ fontSize: 15, fontWeight: 400, color: '#707988' }}>
+            <Typography
+              sx={{ fontSize: 15, fontWeight: 400, color: "#707988" }}
+            >
               {dayjs(postInfo.createdAt).fromNow()}
             </Typography>
           </Box>
         </Box>
 
         {/* Options + Time */}
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '6px' }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-end",
+            gap: "6px",
+          }}
+        >
           <IconButton size="medium">
-            <MoreHorizIcon sx={{ fontSize: 25, color: '#5D6778' }} />
+            <MoreHorizIcon sx={{ fontSize: 25, color: "#5D6778" }} />
           </IconButton>
-
         </Box>
       </Box>
 
       {/* Divider */}
-      <Divider sx={{ width: '100%', borderColor: '#E3E7EF' }} />
+      <Divider sx={{ width: "100%", borderColor: "#E3E7EF" }} />
 
       {/* Post Content */}
       <Box
         sx={{
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
           gap: 2,
-          alignItems: 'center',
-          px: 2
+          alignItems: "center",
+          px: 2,
         }}
       >
         <Typography
           sx={{
-            width: '100%',
+            width: "100%",
             fontSize: 17,
             fontWeight: 400,
-            color: '#27364B',
-            lineHeight: '24.5px',
-            fontFamily: 'Inter, sans-serif',
-            textTransform: 'initial'
-
-
+            color: "#27364B",
+            lineHeight: "24.5px",
+            fontFamily: "Inter, sans-serif",
+            textTransform: "initial",
           }}
         >
           {postInfo.body}
         </Typography>
 
-
         <Box
           sx={{
-            width: '100%',
+            width: "100%",
             maxWidth: 700,
             borderRadius: 2,
-            overflow: 'hidden',
+            overflow: "hidden",
             height: {
               xs: 200,
               sm: 300,
@@ -120,60 +138,58 @@ const PostCard = ({ postInfo, ShowAllComments = false }: { postInfo: Post, ShowA
               src={postInfo.image}
               alt="Post image"
               sx={{
-                width: { xs: '100%', md: 700 },
-                height: { xs: '100%', md: 500 },
+                width: { xs: "100%", md: 700 },
+                height: { xs: "100%", md: 500 },
                 borderRadius: 2,
-                objectFit: 'cover',
+                objectFit: "cover",
               }}
             />
           ) : null}
         </Box>
-
-
       </Box>
 
-
-      <Box sx={{
-        width: { xs: '100%' },
-        px: 2,
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        gap: 2
-      }}>
+      <Box
+        sx={{
+          width: { xs: "100%" },
+          px: 2,
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: 2,
+        }}
+      >
         {/* Actions */}
         <Box
           sx={{
-            width: { xs: '100%' },
+            width: { xs: "100%" },
             mt: { xs: 0, md: 4 },
-            mx: 'auto',
+            mx: "auto",
             px: 2,
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
           }}
         >
-          <Button sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Button sx={{ display: "flex", alignItems: "center", gap: 1 }}>
             <Box
-              component={'img'}
+              component={"img"}
               src={commentImage.src}
               alt="Comment"
               sx={{
-                width: '24px',
-                height: '24px',
-                objectFit: 'cover',
+                width: "24px",
+                height: "24px",
+                objectFit: "cover",
               }}
             />
-
 
             <Typography
               sx={{
                 fontSize: 17,
                 fontWeight: 500,
-                color: '#5D6778',
-                lineHeight: '24.5px',
-                textTransform: 'initial'
+                color: "#5D6778",
+                lineHeight: "24.5px",
+                textTransform: "initial",
               }}
             >
               Comment
@@ -181,44 +197,59 @@ const PostCard = ({ postInfo, ShowAllComments = false }: { postInfo: Post, ShowA
           </Button>
           <Button>
             <Box
-              component={'img'}
+              component={"img"}
               src={LikeImage.src}
               alt="Like"
               sx={{
-                width: '24px',
-                height: '24px',
-                objectFit: 'cover',
+                width: "24px",
+                height: "24px",
+                objectFit: "cover",
               }}
             />
           </Button>
         </Box>
 
-        <Divider sx={{ width: '90%', borderColor: '#E3E7EF', my: 2, mx: 'auto' }}>Comments</Divider>
+        <Divider
+          sx={{ width: "90%", borderColor: "#E3E7EF", my: 2, mx: "auto" }}
+        >
+          Comments
+        </Divider>
 
         {/* Comments*/}
-        <Box sx={{ width: '100%' }}>
-          {postInfo.comments.length > 0 && !ShowAllComments && <CommentCard CommentInfo={postInfo.comments[0]} />}
-          {postInfo.comments.length > 1 && ShowAllComments && postInfo.comments.map((comment) => <CommentCard key={postInfo._id} CommentInfo={comment} />)}
+        <Box sx={{ width: "100%" }}>
+          {postInfo.comments.length > 0 && !ShowAllComments && (
+            <CommentCard CommentInfo={postInfo.comments[0]} />
+          )}
+          {postInfo.comments.length > 1 &&
+            ShowAllComments &&
+            postInfo.comments.map((comment) => (
+              <CommentCard key={postInfo._id} CommentInfo={comment} />
+            ))}
         </Box>
 
-        {!ShowAllComments && <>
-          {/* More Comments*/}
-          <Button href={`/Post/${postInfo._id}`} variant='contained' sx={{ my: 1, mx: 'auto', width: '100%' }}>
-            <Typography textTransform={'initial'}>
-              Show More Comments
-            </Typography>
-          </Button>
-        </>
-        }
+        {!ShowAllComments && postInfo.comments.length > 1 && (
+          <>
+            {/* More Comments*/}
+            <Button
+              href={`/Post/${postInfo._id}`}
+              variant="contained"
+              sx={{ my: 1, mx: "auto", width: "100%" }}
+            >
+              <Typography textTransform={"initial"}>
+                Show More Comments
+              </Typography>
+            </Button>
+          </>
+        )}
 
         {/* CommentInput */}
         <Box
           sx={{
-            width: '100%',
+            width: "100%",
             py: 1,
-            display: 'flex',
+            display: "flex",
             justifyContent: "center",
-            alignItems: 'center',
+            alignItems: "center",
             gap: 2,
           }}
         >
@@ -238,7 +269,7 @@ const PostCard = ({ postInfo, ShowAllComments = false }: { postInfo: Post, ShowA
           />
         </Box>
       </Box>
-    </Box >
+    </Box>
   );
 };
 
