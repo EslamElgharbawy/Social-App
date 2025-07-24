@@ -1,5 +1,5 @@
 'use client';
-import CreatePostCard from '@/components/CreatePostCard/CreatePostCard';
+import CreatePostCard from '@/components/CreatePost/CreatePost';
 import Loading from '@/components/Loading/Loading';
 import PostCard from '@/components/PostCard/PostCard';
 import { getPosts } from '@/Features/posts.slice';

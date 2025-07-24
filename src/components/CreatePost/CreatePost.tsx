@@ -6,7 +6,7 @@ import styled from "@emotion/styled";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-const CreatePostCard = () => {
+const CreatePost = () => {
   let { user } = useAppSelector((store) => store.UserInfoReducer);
   let { token } = useAppSelector((store) => store.userReducer);
   const VisuallyHiddenInput = styled("input")({
@@ -51,6 +51,7 @@ const CreatePostCard = () => {
       console.log(error);
     }
   }
+
   return (
     <Box
       sx={{
@@ -151,4 +152,4 @@ const CreatePostCard = () => {
   );
 };
 
-export default CreatePostCard;
+export default CreatePost;

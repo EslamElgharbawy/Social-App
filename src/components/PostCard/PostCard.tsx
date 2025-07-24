@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   Box,
   Typography,
@@ -7,6 +7,7 @@ import {
   Button,
   Avatar,
   OutlinedInput,
+  InputAdornment,
 } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Post } from "@/types/posts.type";
@@ -17,6 +18,8 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import CommentCard from "../CommentCard/CommentCard";
 import { useAppSelector } from "@/hooks/Store.hooks";
+import SendIcon from "@mui/icons-material/Send";
+import axios from "axios";
 dayjs.extend(relativeTime);
 
 const PostCard = ({
@@ -26,7 +29,22 @@ const PostCard = ({
   postInfo: Post;
   ShowAllComments?: boolean;
 }) => {
+  const commentInputRef = useRef<HTMLInputElement>(null);
   let { user } = useAppSelector((store) => store.UserInfoReducer);
+  const token = useAppSelector((store) => store.userReducer);
+
+  // async function createCommentCard() {
+  //   const options = {
+  //     url: "https://linked-posts.routemisr.com/comments",
+  //     method: "POST",
+  //     headers: {
+  //       token,
+  //     },
+  //   };
+  //   let { data } = await axios.request(options);
+  //   console.log(data);
+  // }
+
   return (
     <Box
       sx={{
@@ -171,7 +189,12 @@ const PostCard = ({
             alignItems: "center",
           }}
         >
-          <Button sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          <Button
+            sx={{ display: "flex", alignItems: "center", gap: 1 }}
+            onClick={() => {
+              commentInputRef.current?.focus();
+            }}
+          >
             <Box
               component={"img"}
               src={commentImage.src}
@@ -259,14 +282,39 @@ const PostCard = ({
             sx={{ width: 45, height: 45 }}
           />
 
-          <OutlinedInput
-            placeholder="Share your thoughts here..."
-            fullWidth
+          <Box
             sx={{
-              height: 44,
-              borderRadius: 1.5,
+              width: "100%",
+              display: "flex",
+              justifyContent:"center",
+              alignItems: "center",
             }}
-          />
+          >
+            <OutlinedInput
+              placeholder="Share your thoughts here..."
+              inputRef={commentInputRef}
+              fullWidth
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    edge="end"
+                    sx={{
+                      backgroundColor: "transparent",
+                      display:"flex",
+                      justifyContent:'center'
+                    }}
+                  >
+                    <SendIcon sx={{color:"#4C68D5"}} />
+                  </IconButton>
+                </InputAdornment>
+              }
+              sx={{
+                height: 44,
+                borderRadius: 1.5,
+                pr: 2
+              }}
+            />
+          </Box>
         </Box>
       </Box>
     </Box>
