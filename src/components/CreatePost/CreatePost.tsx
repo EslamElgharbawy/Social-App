@@ -41,12 +41,11 @@ const CreatePost = () => {
           token,
         },
         data: postData,
-        
       };
       let { data } = await axios.request(options);
-      if (data.message==="success") {
-          toast.success('Post has been created')
-        }
+      if (data.message === "success") {
+        toast.success("Post has been created");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -113,7 +112,7 @@ const CreatePost = () => {
           <VisuallyHiddenInput type="file" ref={postFile} />
           <Typography
             sx={{
-              fontSize: 17,
+              fontSize: { xs: 14, lg: 16 },
               fontWeight: 500,
               color: "#27364B",
               fontFamily: "Inter, sans-serif",
@@ -134,7 +133,7 @@ const CreatePost = () => {
             borderRadius: "100px",
             backgroundColor: "#4C68D5",
             textTransform: "none",
-            fontSize: 16,
+            fontSize: { xs: 14, lg: 16 },
             fontWeight: 500,
             fontFamily: "Inter, sans-serif",
             lineHeight: "24.5px",

@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Post } from "@/types/posts.type";
-import Image from "next/image";
 import commentImage from "@/assets/images/Comment.svg";
 import LikeImage from "@/assets/images/Like.svg";
 import dayjs from "dayjs";
@@ -20,6 +19,7 @@ import CommentCard from "../CommentCard/CommentCard";
 import { useAppSelector } from "@/hooks/Store.hooks";
 import SendIcon from "@mui/icons-material/Send";
 import axios from "axios";
+import toast from "react-hot-toast";
 dayjs.extend(relativeTime);
 
 const PostCard = ({
@@ -31,19 +31,33 @@ const PostCard = ({
 }) => {
   const commentInputRef = useRef<HTMLInputElement>(null);
   let { user } = useAppSelector((store) => store.UserInfoReducer);
-  const token = useAppSelector((store) => store.userReducer);
+  const { token } = useAppSelector((store) => store.userReducer);
 
-  // async function createCommentCard() {
-  //   const options = {
-  //     url: "https://linked-posts.routemisr.com/comments",
-  //     method: "POST",
-  //     headers: {
-  //       token,
-  //     },
-  //   };
-  //   let { data } = await axios.request(options);
-  //   console.log(data);
-  // }
+  async function createCommentCard() {
+    try {
+      const Content = commentInputRef.current?.value || "";
+      const commentData = {
+        content: Content,
+        post: postInfo._id,
+      };
+      const options = {
+        url: "https://linked-posts.routemisr.com/comments",
+        method: "POST",
+        headers: {
+          token,
+          "Content-Type": "application/json",
+        },
+        data: JSON.stringify(commentData),
+      };
+      let { data } = await axios.request(options);
+      if (data.message=="success") {
+        toast.success("Comment created")
+      }
+      if (commentInputRef.current) commentInputRef.current.value = "";
+    } catch (error) {
+      console.error("Error posting comment:", error);
+    }
+  }
 
   return (
     <Box
@@ -74,20 +88,28 @@ const PostCard = ({
       >
         {/* Avatar + Info */}
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-          <Image
+          <Box
+            component={"img"}
             src={postInfo.user.photo}
-            width={50}
-            height={50}
+            sx={{ width: { xs: "45px", lg: "50px" } }}
             alt={postInfo.user.name}
           />
           <Box>
             <Typography
-              sx={{ fontSize: 17, fontWeight: 500, color: "#0C1024" }}
+              sx={{
+                fontSize: { xs: 15, lg: 17 },
+                fontWeight: 500,
+                color: "#0C1024",
+              }}
             >
               {postInfo.user.name}
             </Typography>
             <Typography
-              sx={{ fontSize: 15, fontWeight: 400, color: "#707988" }}
+              sx={{
+                fontSize: { xs: 13, lg: 15 },
+                fontWeight: 400,
+                color: "#707988",
+              }}
             >
               {dayjs(postInfo.createdAt).fromNow()}
             </Typography>
@@ -200,15 +222,15 @@ const PostCard = ({
               src={commentImage.src}
               alt="Comment"
               sx={{
-                width: "24px",
-                height: "24px",
+                width: { xs: "20px", lg: "24px" },
+                height: { xs: "20px", lg: "24px" },
                 objectFit: "cover",
               }}
             />
 
             <Typography
               sx={{
-                fontSize: 17,
+                fontSize: { xs: 14, lg: 17 },
                 fontWeight: 500,
                 color: "#5D6778",
                 lineHeight: "24.5px",
@@ -224,8 +246,8 @@ const PostCard = ({
               src={LikeImage.src}
               alt="Like"
               sx={{
-                width: "24px",
-                height: "24px",
+                width: { xs: "20px", lg: "24px" },
+                height: { xs: "20px", lg: "24px" },
                 objectFit: "cover",
               }}
             />
@@ -273,7 +295,7 @@ const PostCard = ({
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            gap: 2,
+            gap: 1,
           }}
         >
           <Avatar
@@ -286,32 +308,33 @@ const PostCard = ({
             sx={{
               width: "100%",
               display: "flex",
-              justifyContent:"center",
+              justifyContent: "center",
               alignItems: "center",
             }}
           >
             <OutlinedInput
-              placeholder="Share your thoughts here..."
+              placeholder="Add Comment..."
               inputRef={commentInputRef}
               fullWidth
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
+                    onClick={createCommentCard}
                     edge="end"
                     sx={{
                       backgroundColor: "transparent",
-                      display:"flex",
-                      justifyContent:'center'
+                      display: "flex",
+                      justifyContent: "center",
                     }}
                   >
-                    <SendIcon sx={{color:"#4C68D5"}} />
+                    <SendIcon sx={{ color: "#4C68D5" }} />
                   </IconButton>
                 </InputAdornment>
               }
               sx={{
                 height: 44,
                 borderRadius: 1.5,
-                pr: 2
+                pr: 2,
               }}
             />
           </Box>
