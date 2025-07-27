@@ -1,7 +1,6 @@
-import { userReducer } from './user.slice';
-import { PostState } from './../types/posts.type';
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from 'axios';
+import { PostState } from './../types/posts.type';
 
 const initialState: PostState = {
     posts: null,
@@ -13,7 +12,7 @@ export const getPosts = createAsyncThunk('posts/getPosts', async (_, { getState 
     const token = state.userReducer.token || localStorage.getItem('token')
 
     const options = {
-        url: "https://linked-posts.routemisr.com/posts?limit=50&page=92",
+        url: "https://linked-posts.routemisr.com/posts?limit=50&page=94",
         method: "GET",
         headers: {
             token

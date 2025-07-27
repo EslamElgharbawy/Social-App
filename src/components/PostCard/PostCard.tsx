@@ -1,25 +1,29 @@
-import React, { useRef } from "react";
-import {
-  Box,
-  Typography,
-  Divider,
-  IconButton,
-  Button,
-  Avatar,
-  OutlinedInput,
-  InputAdornment,
-} from "@mui/material";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { Post } from "@/types/posts.type";
 import commentImage from "@/assets/images/Comment.svg";
 import LikeImage from "@/assets/images/Like.svg";
+import { useAppDispatch, useAppSelector } from "@/hooks/Store.hooks";
+import { Post } from "@/types/posts.type";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import SendIcon from "@mui/icons-material/Send";
+import {
+  Avatar,
+  Box,
+  Button,
+  Divider,
+  IconButton,
+  InputAdornment,
+  OutlinedInput,
+  Typography,
+} from "@mui/material";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import axios from "axios";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import CommentCard from "../CommentCard/CommentCard";
-import { useAppSelector } from "@/hooks/Store.hooks";
-import SendIcon from "@mui/icons-material/Send";
-import axios from "axios";
+import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
+import CommentCard from "../CommentCard/CommentCard";
+import { getPosts } from "@/Features/posts.slice";
+import { getComments } from "@/Features/Comments.slice";
 dayjs.extend(relativeTime);
 
 const PostCard = ({
@@ -29,9 +33,11 @@ const PostCard = ({
   postInfo: Post;
   ShowAllComments?: boolean;
 }) => {
+  const dispatch = useAppDispatch();
   const commentInputRef = useRef<HTMLInputElement>(null);
   let { user } = useAppSelector((store) => store.UserInfoReducer);
   const { token } = useAppSelector((store) => store.userReducer);
+  let { comments } = useAppSelector((store) => store.CommentReducer);
 
   async function createCommentCard() {
     try {
@@ -50,14 +56,47 @@ const PostCard = ({
         data: JSON.stringify(commentData),
       };
       let { data } = await axios.request(options);
-      if (data.message=="success") {
-        toast.success("Comment created")
+      if (data.message == "success") {
+        toast.success("Comment created");
       }
       if (commentInputRef.current) commentInputRef.current.value = "";
     } catch (error) {
       console.error("Error posting comment:", error);
     }
   }
+
+  async function DeletePost() {
+    try {
+      const options = {
+        url: `https://linked-posts.routemisr.com/posts/${postInfo._id}`,
+        method: "DELETE",
+        headers: {
+          token,
+        },
+      };
+      let { data } = await axios.request(options);
+      if (data.message === "success") {
+        toast.success("Post has been deleted");
+        dispatch(getPosts());
+      }
+      console.log(data);
+    } catch (error) {
+      console.error("Error posting comment:", error);
+    }
+  }
+
+  useEffect(() => {
+      dispatch(getComments(postInfo._id));
+  }, []);
+
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <Box
@@ -125,9 +164,38 @@ const PostCard = ({
             gap: "6px",
           }}
         >
-          <IconButton size="medium">
+          <IconButton
+            size="medium"
+            id="basic-button"
+            aria-controls={open ? "basic-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
+            onClick={handleClick}
+          >
             <MoreHorizIcon sx={{ fontSize: 25, color: "#5D6778" }} />
           </IconButton>
+
+          <Menu
+            id="basic-menu"
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            slotProps={{
+              list: {
+                "aria-labelledby": "basic-button",
+              },
+            }}
+            disableScrollLock
+          >
+            <MenuItem
+              onClick={() => {
+                handleClose();
+                DeletePost();
+              }}
+            >
+              Delete
+            </MenuItem>
+          </Menu>
         </Box>
       </Box>
 
@@ -262,17 +330,18 @@ const PostCard = ({
 
         {/* Comments*/}
         <Box sx={{ width: "100%" }}>
-          {postInfo.comments.length > 0 && !ShowAllComments && (
-            <CommentCard CommentInfo={postInfo.comments[0]} />
+          {comments && comments.length > 0 && !ShowAllComments && (
+            <CommentCard CommentInfo={comments[0]} />
           )}
-          {postInfo.comments.length > 1 &&
+          {comments &&
+            comments.length > 1 &&
             ShowAllComments &&
-            postInfo.comments.map((comment) => (
-              <CommentCard key={postInfo._id} CommentInfo={comment} />
+            comments.map((comment) => (
+              <CommentCard key={comment._id} CommentInfo={comment} />
             ))}
         </Box>
 
-        {!ShowAllComments && postInfo.comments.length > 1 && (
+        {!ShowAllComments && comments && comments.length > 1 && (
           <>
             {/* More Comments*/}
             <Button

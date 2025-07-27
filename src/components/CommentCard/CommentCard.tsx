@@ -1,4 +1,4 @@
-import { Comment } from '@/types/posts.type';
+import { Comment } from '@/types/comments.type';
 import { Box, Avatar, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime'
