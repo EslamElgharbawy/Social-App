@@ -23,7 +23,6 @@ import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import CommentCard from "../CommentCard/CommentCard";
 import { getPosts } from "@/Features/posts.slice";
-import { getComments } from "@/Features/Comments.slice";
 dayjs.extend(relativeTime);
 
 const PostCard = ({
@@ -33,11 +32,11 @@ const PostCard = ({
   postInfo: Post;
   ShowAllComments?: boolean;
 }) => {
+    const [localPostInfo, setLocalPostInfo] = useState(postInfo);
   const dispatch = useAppDispatch();
   const commentInputRef = useRef<HTMLInputElement>(null);
   let { user } = useAppSelector((store) => store.UserInfoReducer);
   const { token } = useAppSelector((store) => store.userReducer);
-  let { comments } = useAppSelector((store) => store.CommentReducer);
 
   async function createCommentCard() {
     try {
@@ -58,6 +57,7 @@ const PostCard = ({
       let { data } = await axios.request(options);
       if (data.message == "success") {
         toast.success("Comment created");
+        await getComments();
       }
       if (commentInputRef.current) commentInputRef.current.value = "";
     } catch (error) {
@@ -65,6 +65,22 @@ const PostCard = ({
     }
   }
 
+  async function getComments() {
+    try {
+      const options = {
+        url: `https://linked-posts.routemisr.com/posts/${postInfo._id}/comments`,
+        method: "GET",
+        headers: {
+          token,
+        },
+      };
+      let { data } = await axios.request(options);
+      console.log(data);
+      setLocalPostInfo({ ...postInfo, comments: data.comments });
+    } catch (error) {
+      console.error("Error posting comment:", error);
+    }
+  }
   async function DeletePost() {
     try {
       const options = {
@@ -84,10 +100,6 @@ const PostCard = ({
       console.error("Error posting comment:", error);
     }
   }
-
-  useEffect(() => {
-      dispatch(getComments(postInfo._id));
-  }, []);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -330,31 +342,35 @@ const PostCard = ({
 
         {/* Comments*/}
         <Box sx={{ width: "100%" }}>
-          {comments && comments.length > 0 && !ShowAllComments && (
-            <CommentCard CommentInfo={comments[0]} />
-          )}
-          {comments &&
-            comments.length > 1 &&
+          {localPostInfo.comments &&
+            localPostInfo.comments.length > 0 &&
+            !ShowAllComments && (
+              <CommentCard CommentInfo={localPostInfo.comments[0]} />
+            )}
+          {localPostInfo.comments &&
+            localPostInfo.comments.length > 1 &&
             ShowAllComments &&
-            comments.map((comment) => (
+            localPostInfo.comments.map((comment) => (
               <CommentCard key={comment._id} CommentInfo={comment} />
             ))}
         </Box>
 
-        {!ShowAllComments && comments && comments.length > 1 && (
-          <>
-            {/* More Comments*/}
-            <Button
-              href={`/Post/${postInfo._id}`}
-              variant="contained"
-              sx={{ my: 1, mx: "auto", width: "100%" }}
-            >
-              <Typography textTransform={"initial"}>
-                Show More Comments
-              </Typography>
-            </Button>
-          </>
-        )}
+        {localPostInfo.comments &&
+          !ShowAllComments &&
+          localPostInfo.comments.length > 1 && (
+            <>
+              {/* More Comments*/}
+              <Button
+                href={`/Post/${localPostInfo._id}`}
+                variant="contained"
+                sx={{ my: 1, mx: "auto", width: "100%" }}
+              >
+                <Typography textTransform={"initial"}>
+                  Show More Comments
+                </Typography>
+              </Button>
+            </>
+          )}
 
         {/* CommentInput */}
         <Box
