@@ -24,7 +24,7 @@ export default function page() {
                 if (res.payload.message == "success") {
                     setTimeout(() => {
                         router.push("/")
-                    }, 1500);
+                    }, 1000);
 
                 }
             }).catch((error) => {

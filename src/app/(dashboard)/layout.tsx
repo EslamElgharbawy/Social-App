@@ -18,9 +18,10 @@ import { usePathname, useRouter } from "next/navigation";
 import { ReactNode, useEffect } from "react";
 import HomeIcon from "@mui/icons-material/Home";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import SearchIcon from "@mui/icons-material/Search";
+import SendIcon from "/public/Send.svg";
+import Image from "next/image";
 export default function DashboardLayout({ children }: { children: ReactNode }) {
-    const router = useRouter();
+  const router = useRouter();
   const pathname = usePathname();
   const isHome = pathname === "/";
   const isProfile = pathname === "/Profile";
@@ -47,7 +48,9 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           </Grid>
 
           {/* Main Content */}
-          <Grid size={{ xs: 12, md: isProfile || isNotifications ? 9 : 6 }}>{children}</Grid>
+          <Grid size={{ xs: 12, md: isProfile || isNotifications ? 9 : 6 }}>
+            {children}
+          </Grid>
 
           {isHome && (
             <>
@@ -85,16 +88,31 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         <BottomNavigation showLabels>
           <BottomNavigationAction
             label="Profile"
-            onClick={() => router.push('/Profile')}
-            icon={<Avatar src={user?.photo} sx={{ width: 20, height: 20 }} />}
+            onClick={() => router.push("/Profile")}
+            icon={<Avatar src={user?.photo} sx={{ width: 20, height: 24 }} />}
           />
           <BottomNavigationAction
             label="Alerts"
-            onClick={() => router.push('/Notifications')}
-            icon={<NotificationsNoneIcon />}
+            onClick={() => router.push("/Notifications")}
+            icon={<NotificationsNoneIcon sx={{ fontSize: 20 }} />}
           />
-          <BottomNavigationAction label="Search" icon={<SearchIcon/>} />
-          <BottomNavigationAction label="Home"  onClick={() => router.push('/')} icon={<HomeIcon />} />
+          <BottomNavigationAction
+            label="Message"
+            icon={
+              <Image
+                src={SendIcon}
+                alt="Send"
+                width={20}
+                height={24}
+                style={{ objectFit: "contain" }}
+              />
+            }
+          />
+          <BottomNavigationAction
+            label="Home"
+            onClick={() => router.push("/")}
+            icon={<HomeIcon sx={{ fontSize: 20 }} />}
+          />
         </BottomNavigation>
       </Paper>
     </>
