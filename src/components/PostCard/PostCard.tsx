@@ -1,5 +1,6 @@
 import commentImage from "@/assets/images/Comment.svg";
 import LikeImage from "@/assets/images/Like.svg";
+import { getPosts } from "@/Features/posts.slice";
 import { useAppDispatch, useAppSelector } from "@/hooks/Store.hooks";
 import { Post } from "@/types/posts.type";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
@@ -19,10 +20,9 @@ import MenuItem from "@mui/material/MenuItem";
 import axios from "axios";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import CommentCard from "../CommentCard/CommentCard";
-import { getPosts } from "@/Features/posts.slice";
 dayjs.extend(relativeTime);
 
 const PostCard = ({
@@ -32,11 +32,17 @@ const PostCard = ({
   postInfo: Post;
   ShowAllComments?: boolean;
 }) => {
-    const [localPostInfo, setLocalPostInfo] = useState(postInfo);
+  const [localPostInfo, setLocalPostInfo] = useState(postInfo);
+  const [InValue, setInValue] = useState(false);
   const dispatch = useAppDispatch();
   const commentInputRef = useRef<HTMLInputElement>(null);
   let { user } = useAppSelector((store) => store.UserInfoReducer);
   const { token } = useAppSelector((store) => store.userReducer);
+
+  const handleInputChange = () => {
+  const currentValue = commentInputRef.current?.value || "";
+  setInValue(currentValue.trim().length > 0);
+};
 
   async function createCommentCard() {
     try {
@@ -59,7 +65,10 @@ const PostCard = ({
         toast.success("Comment created");
         await getComments();
       }
-      if (commentInputRef.current) commentInputRef.current.value = "";
+      if (commentInputRef.current) {
+        commentInputRef.current.value = "";
+        setInValue(false)
+      }
     } catch (error) {
       console.error("Error posting comment:", error);
     }
@@ -400,11 +409,14 @@ const PostCard = ({
             <OutlinedInput
               placeholder="Add Comment..."
               inputRef={commentInputRef}
+              onInput={handleInputChange}
+              
               fullWidth
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
                     onClick={createCommentCard}
+                    disabled={!InValue}
                     edge="end"
                     sx={{
                       backgroundColor: "transparent",
@@ -412,7 +424,7 @@ const PostCard = ({
                       justifyContent: "center",
                     }}
                   >
-                    <SendIcon sx={{ color: "#4C68D5" }} />
+                    <SendIcon sx={{ color: InValue ? "#4C68D5" : "#ccc" }} />
                   </IconButton>
                 </InputAdornment>
               }

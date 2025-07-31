@@ -1,4 +1,4 @@
-import { Comment } from '@/types/comments.type';
+import { Comment } from '@/types/posts.type';
 import { Box, Avatar, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -33,7 +33,7 @@ export default function CommentCard({ CommentInfo }: { CommentInfo: Comment }) {
                     {/* Footer: Time + Reply */}
                     <Box display="flex" justifyContent="space-between" px={0.5}>
                         <Typography variant="caption" color="#707988">
-                            {dayjs(CommentInfo.content).fromNow()}
+                            {dayjs(CommentInfo.createdAt).fromNow()}
                         </Typography>
                     </Box>
                 </Box>
