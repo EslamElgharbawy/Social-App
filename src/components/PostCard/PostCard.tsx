@@ -1,6 +1,6 @@
 import commentImage from "@/assets/images/Comment.svg";
 import LikeImage from "@/assets/images/Like.svg";
-import { getPosts } from "@/Features/posts.slice";
+import { getMyPosts, getPosts } from "@/Features/posts.slice";
 import { useAppDispatch, useAppSelector } from "@/hooks/Store.hooks";
 import { Post } from "@/types/posts.type";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
@@ -103,6 +103,9 @@ const PostCard = ({
       if (data.message === "success") {
         toast.success("Post has been deleted");
         dispatch(getPosts());
+        if (user?._id) {
+          dispatch(getMyPosts(user._id));
+        }
       }
       console.log(data);
     } catch (error) {

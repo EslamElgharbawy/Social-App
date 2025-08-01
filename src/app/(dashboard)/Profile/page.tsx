@@ -3,38 +3,19 @@ import Footer from "@/components/Footer/Footer";
 import Loading from "@/components/Loading/Loading";
 import PostCard from "@/components/PostCard/PostCard";
 import SuggestedFriendsCard from "@/components/SuggestedFriends/SuggestedFriends";
-import { useAppSelector } from "@/hooks/Store.hooks";
-import { Post } from "@/types/posts.type";
+import { getMyPosts } from "@/Features/posts.slice";
+import { useAppDispatch, useAppSelector } from "@/hooks/Store.hooks";
 import { Avatar, Box, Button, Divider, Stack, Typography } from "@mui/material";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function Profile() {
   let { user } = useAppSelector((store) => store.UserInfoReducer);
-  const { token } = useAppSelector((store) => store.userReducer);
-  const [myPosts, setmyPosts] = useState<Post[] | null>([]);
-  async function getMyPosts() {
-    try {
-      const options = {
-        url: `https://linked-posts.routemisr.com/users/${user?._id}/posts?limit=2`,
-        method: "GET",
-        headers: {
-          token,
-        },
-      };
-      let { data } = await axios.request(options);
-      if (data.message === "success") {
-        console.log(data);
-        setmyPosts(data.posts);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
+  const { myPosts, loading } = useAppSelector((store) => store.postReducer);
+  const dispatch = useAppDispatch();
   useEffect(() => {
-    if (user?._id ) {
-      getMyPosts();
+    const userId = user?._id;
+    if (userId) {
+      dispatch(getMyPosts(userId));
     }
   }, [user]);
 
@@ -154,9 +135,24 @@ export default function Profile() {
 
       <Box sx={{ display: "flex", gap: 15 }}>
         <Box sx={{ width: "100%" }}>
-          {myPosts && myPosts.length > 0
-            ? myPosts.map((post) => <PostCard key={post.id} postInfo={post} />)
-            : <Loading/>}
+          {loading ? (
+            <Loading />
+          ) : myPosts && myPosts.length > 0 ? (
+            myPosts.map((post) => <PostCard key={post.id} postInfo={post} />)
+          ) : (
+            <Box
+              sx={{
+                height: "300px", 
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Typography variant="h6" color="text.secondary">
+                No posts found.
+              </Typography>
+            </Box>
+          )}
         </Box>
         <Box sx={{ display: { xs: "none", lg: "initial" } }}>
           <SuggestedFriendsCard />
