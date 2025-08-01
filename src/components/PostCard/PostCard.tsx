@@ -40,9 +40,9 @@ const PostCard = ({
   const { token } = useAppSelector((store) => store.userReducer);
 
   const handleInputChange = () => {
-  const currentValue = commentInputRef.current?.value || "";
-  setInValue(currentValue.trim().length > 0);
-};
+    const currentValue = commentInputRef.current?.value || "";
+    setInValue(currentValue.trim().length > 0);
+  };
 
   async function createCommentCard() {
     try {
@@ -67,7 +67,7 @@ const PostCard = ({
       }
       if (commentInputRef.current) {
         commentInputRef.current.value = "";
-        setInValue(false)
+        setInValue(false);
       }
     } catch (error) {
       console.error("Error posting comment:", error);
@@ -247,34 +247,35 @@ const PostCard = ({
         >
           {postInfo.body}
         </Typography>
-
-        <Box
-          sx={{
-            width: "100%",
-            maxWidth: 700,
-            borderRadius: 2,
-            overflow: "hidden",
-            height: {
-              xs: 200,
-              sm: 300,
-              md: 500,
-            },
-          }}
-        >
-          {postInfo.image ? (
+        {postInfo.image ? (
+          <>
             <Box
-              component="img"
-              src={postInfo.image}
-              alt="Post image"
               sx={{
-                width: { xs: "100%", md: 700 },
-                height: { xs: "100%", md: 500 },
+                width: "100%",
+                maxWidth: 700,
                 borderRadius: 2,
-                objectFit: "cover",
+                overflow: "hidden",
+                height: {
+                  xs: 200,
+                  sm: 300,
+                  md: 500,
+                },
               }}
-            />
-          ) : null}
-        </Box>
+            >
+              <Box
+                component="img"
+                src={postInfo.image}
+                alt="Post image"
+                sx={{
+                  width: { xs: "100%", md: 700 },
+                  height: { xs: "100%", md: 500 },
+                  borderRadius: 2,
+                  objectFit: "cover",
+                }}
+              />
+            </Box>
+          </>
+        ) : null}
       </Box>
 
       <Box
@@ -410,7 +411,6 @@ const PostCard = ({
               placeholder="Add Comment..."
               inputRef={commentInputRef}
               onInput={handleInputChange}
-              
               fullWidth
               endAdornment={
                 <InputAdornment position="end">
@@ -429,7 +429,7 @@ const PostCard = ({
                 </InputAdornment>
               }
               sx={{
-                height: 44,
+                height: { xs: 40, lg: 44 },
                 borderRadius: 1.5,
                 pr: 2,
               }}

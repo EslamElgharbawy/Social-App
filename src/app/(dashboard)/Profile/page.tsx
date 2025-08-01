@@ -1,12 +1,42 @@
 "use client";
 import Footer from "@/components/Footer/Footer";
-import MyPostCard from "@/components/MyPostCard/MyPostCard";
+import Loading from "@/components/Loading/Loading";
+import PostCard from "@/components/PostCard/PostCard";
 import SuggestedFriendsCard from "@/components/SuggestedFriends/SuggestedFriends";
 import { useAppSelector } from "@/hooks/Store.hooks";
+import { Post } from "@/types/posts.type";
 import { Avatar, Box, Button, Divider, Stack, Typography } from "@mui/material";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 export default function Profile() {
   let { user } = useAppSelector((store) => store.UserInfoReducer);
+  const { token } = useAppSelector((store) => store.userReducer);
+  const [myPosts, setmyPosts] = useState<Post[] | null>([]);
+  async function getMyPosts() {
+    try {
+      const options = {
+        url: `https://linked-posts.routemisr.com/users/${user?._id}/posts?limit=2`,
+        method: "GET",
+        headers: {
+          token,
+        },
+      };
+      let { data } = await axios.request(options);
+      if (data.message === "success") {
+        console.log(data);
+        setmyPosts(data.posts);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    if (user?._id ) {
+      getMyPosts();
+    }
+  }, [user]);
 
   return (
     <>
@@ -105,12 +135,16 @@ export default function Profile() {
             <Stack key={item.label} alignItems="center" spacing={1}>
               <Typography
                 fontWeight={700}
-                sx={{ fontSize: { xs: 18, lg: 24 } }} 
+                sx={{ fontSize: { xs: 18, lg: 24 } }}
                 color="#27364B"
               >
                 {item.value}
               </Typography>
-              <Typography fontWeight={400} sx={{ fontSize: { xs: 12, sm: 14 } }} color="#4B5669">
+              <Typography
+                fontWeight={400}
+                sx={{ fontSize: { xs: 12, sm: 14 } }}
+                color="#4B5669"
+              >
                 {item.label}
               </Typography>
             </Stack>
@@ -119,10 +153,12 @@ export default function Profile() {
       </Box>
 
       <Box sx={{ display: "flex", gap: 15 }}>
-        <Box>
-          <MyPostCard />
+        <Box sx={{ width: "100%" }}>
+          {myPosts && myPosts.length > 0
+            ? myPosts.map((post) => <PostCard key={post.id} postInfo={post} />)
+            : <Loading/>}
         </Box>
-        <Box sx={{display:{xs:'none',lg:'initial'}}}>
+        <Box sx={{ display: { xs: "none", lg: "initial" } }}>
           <SuggestedFriendsCard />
           <Footer />
         </Box>

@@ -12,7 +12,7 @@ export const getPosts = createAsyncThunk('posts/getPosts', async (_, { getState 
     const token = state.userReducer.token || localStorage.getItem('token')
 
     const options = {
-        url: "https://linked-posts.routemisr.com/posts?limit=50&page=94",
+        url: "https://linked-posts.routemisr.com/posts?limit=50&page=95",
         method: "GET",
         headers: {
             token
