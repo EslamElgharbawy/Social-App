@@ -37,13 +37,13 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
     <>
       <Navbar />
-      <Box sx={{ bgcolor: "#FAFBFF", py: { xs: 0, lg: 3 }, my: { xs: 0 } }}>
+      <Box sx={{minHeight:"100vh", bgcolor: "#FAFBFF", py: { xs: 0, lg: 3 }, my: { xs: 0 } }}>
         <Grid
           container
-          sx={{ mx: { xs: 1, md: 5 }, py: 3, my: { xs: 0, md: 8 } }}
+          sx={{ mx: { xs: 1, xl: 5 }, py: 3, my: { xs: 0, md: 8 } }}
         >
           {/* Sidebar */}
-          <Grid size={3} sx={{ display: { xs: "none", md: "block" } }}>
+          <Grid size={3} sx={{ display: { xs: "none", xl: "block" } }}>
             <UserCard />
           </Grid>
 
@@ -81,7 +81,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           bottom: 0,
           left: 0,
           right: 0,
-          display: { md: "none", xs: "block" },
+          display: { xl: "none", xs: "block" },
         }}
         elevation={3}
       >
@@ -107,6 +107,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                 style={{ objectFit: "contain" }}
               />
             }
+            onClick={() => router.push("/Messages")}
           />
           <BottomNavigationAction
             label="Home"
