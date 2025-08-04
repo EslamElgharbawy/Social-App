@@ -116,7 +116,7 @@ const CreatePost = () => {
           alignItems: "center",
           justifyContent: "space-between",
           width: "100%",
-          gap: { xs: 0, md: "290px" },
+          gap: { xs: 0, xl: "290px" },
         }}
       >
         <Button
@@ -127,7 +127,7 @@ const CreatePost = () => {
           <VisuallyHiddenInput type="file" ref={postFile} />
           <Typography
             sx={{
-              fontSize: { xs: 14, lg: 16 },
+              fontSize: { xs: 14, xl: 16 },
               fontWeight: 500,
               color: "#27364B",
               fontFamily: "Inter, sans-serif",
@@ -149,7 +149,7 @@ const CreatePost = () => {
             borderRadius: "100px",
             backgroundColor: inPost ? "#4C68D5" : "#ccc",
             textTransform: "none",
-            fontSize: { xs: 14, lg: 16 },
+            fontSize: { xs: 14, xl: 16 },
             fontWeight: 500,
             fontFamily: "Inter, sans-serif",
             lineHeight: "24.5px",

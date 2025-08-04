@@ -28,8 +28,8 @@ export default function Messages() {
       sx={{
         width: {
           xs: "100%",
-          md: 460,
-          lg: 800,
+          md: 415,
+          lg: 465,
           xl: 934,
         },
         height: { xs: "auto", xl: 581 },
@@ -39,7 +39,7 @@ export default function Messages() {
         borderRadius: 2,
         border: "1px solid #ECF0F5",
         display: "flex",
-        flexDirection: { xs: "column", lg: "row" },
+        flexDirection: { xs: "column", xl: "row" },
       }}
     >
       {/* Conversations Panel */}
@@ -49,7 +49,7 @@ export default function Messages() {
             xs: "100%",
             md:"auto"
           },
-          borderRight: { lg: "1px solid #F1F4F9" },
+          borderRight: { xl: "1px solid #F1F4F9" },
           flexShrink: 0,
         }}
       >

@@ -5,13 +5,41 @@ import PostCard from "@/components/PostCard/PostCard";
 import SuggestedFriendsCard from "@/components/SuggestedFriends/SuggestedFriends";
 import { getMyPosts } from "@/Features/posts.slice";
 import { useAppDispatch, useAppSelector } from "@/hooks/Store.hooks";
-import { Avatar, Box, Button, Divider, Stack, Typography } from "@mui/material";
-import { useEffect } from "react";
+import SettingsIcon from "@mui/icons-material/Settings";
+import GridViewIcon from "@mui/icons-material/GridView";
+import {
+  Avatar,
+  Box,
+  Button,
+  Divider,
+  List,
+  ListItemText,
+  Stack,
+  Tab,
+  Tabs,
+  Typography,
+} from "@mui/material";
+import React, { useEffect, useRef } from "react";
+import axios from "axios";
+import styled from "@emotion/styled";
+import toast from "react-hot-toast";
 
 export default function Profile() {
   let { user } = useAppSelector((store) => store.UserInfoReducer);
   const { myPosts, loading } = useAppSelector((store) => store.postReducer);
+  const { token } = useAppSelector((store) => store.userReducer);
   const dispatch = useAppDispatch();
+  const VisuallyHiddenInput = styled("input")({
+    clip: "rect(0 0 0 0)",
+    clipPath: "inset(50%)",
+    height: 1,
+    overflow: "hidden",
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    whiteSpace: "nowrap",
+    width: 1,
+  });
   useEffect(() => {
     const userId = user?._id;
     if (userId) {
@@ -19,14 +47,80 @@ export default function Profile() {
     }
   }, [user]);
 
+  const PhotoRef = useRef<HTMLInputElement>(null);
+  async function geUserPhoto() {
+    const toastId = toast.loading("Please wait...", { position: "top-center" });
+    const photo = PhotoRef.current?.files?.[0];
+
+    const UploadPhoto = new FormData();
+    if (photo) {
+      UploadPhoto.append("photo", photo);
+    }
+    try {
+      const options = {
+        url: "https://linked-posts.routemisr.com/users/upload-photo",
+        method: "PUT",
+        headers: {
+          token,
+        },
+        data: UploadPhoto,
+      };
+      let { data } = await axios.request(options);
+      if (data.message === "success") {
+        toast.success("Saved successfully", {
+          id: toastId,
+          position: "top-center",
+        });
+      } else {
+        toast.error("Upload failed", { id: toastId, position: "top-center" });
+      }
+    } catch (error) {
+      toast.error("An error occurred", { id: toastId, position: "top-center" });
+      console.log(error);
+    }
+  }
+
+  interface TabPanelProps {
+    children?: React.ReactNode;
+    index: number;
+    value: number;
+  }
+
+  function CustomTabPanel(props: TabPanelProps) {
+    const { children, value, index, ...other } = props;
+
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`simple-tabpanel-${index}`}
+        aria-labelledby={`simple-tab-${index}`}
+        {...other}
+      >
+        {value === index && <Box >{children}</Box>}
+      </div>
+    );
+  }
+
+  function a11yProps(index: number) {
+    return {
+      id: `simple-tab-${index}`,
+      "aria-controls": `simple-tabpanel-${index}`,
+    };
+  }
+
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
   return (
     <>
       <Box
         sx={{
-          height: { xs: 215, lg: 233 },
+          height: { xs: 215, xl: 233 },
           width: "100%",
-          mx: "auto",
-          mb: { xs: 3, lg: 5 },
+          mb: { xs: 3, xl: 5 },
         }}
         position="relative"
         bgcolor="white"
@@ -39,18 +133,18 @@ export default function Profile() {
           sx={{
             display: "flex",
             position: "absolute",
-            gap: { xs: 2, lg: 3 },
-            top: { xs: 12, lg: 32 },
-            left: { xs: 14, lg: 44 },
+            gap: { xs: 2, xl: 3 },
+            top: { xs: 12, xl: 32 },
+            left: { xs: 14, xl: 44 },
           }}
-          direction={{ xs: "column", lg: "row" }}
-          alignItems={{ xs: "center", lg: "flex-start" }}
+          direction={{ xs: "column", xl: "row" }}
+          alignItems={{ xs: "center", xl: "flex-start" }}
         >
           <Avatar
             src={user?.photo}
             sx={{
-              width: { xs: 74, lg: 96 }, // ← صغّر الحجم على الموبايل
-              height: { xs: 74, lg: 96 },
+              width: { xs: 74, xl: 96 },
+              height: { xs: 74, xl: 96 },
               border: "2px solid white",
             }}
           />
@@ -60,7 +154,7 @@ export default function Profile() {
               fontWeight={600}
               color="#27364B"
               sx={{
-                fontSize: { xs: 18, lg: 22 }, // ← صغّر الخط على الموبايل
+                fontSize: { xs: 18, xl: 22 },
               }}
             >
               {user?.name}
@@ -72,40 +166,75 @@ export default function Profile() {
         <Divider
           sx={{
             position: "absolute",
-            top: { xs: 163, lg: 168 },
+            top: { xs: 163, xl: 168 },
             width: "100%",
             borderColor: "#C8D0E1",
           }}
         />
 
         {/* Tabs */}
-        <Stack
-          direction="row"
-          sx={{ position: "absolute", top: { xs: 166, lg: 178 }, left: 40 }}
-        >
-          <Button
+        <Box sx={{ position: "relative", mx: "auto" }}>
+          <Stack
+            direction="row"
             sx={{
-              fontWeight: 700,
-              fontSize: 16,
-              textTransform: "initial",
-              color: "#0C1024",
+              position: "absolute",
+              top: { xs: 166, xl: 175 },
+              left: { xs: "50%", xl: 40 },
+              transform: { xs: "translateX(-50%)", xl: "none" },
             }}
           >
-            My Posts
-          </Button>
-        </Stack>
+            {/* Tabs for small screens */}
+            <Box sx={{ display: { xs: "initial", xl: "none" } }}>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                aria-label="basic tabs example"
+              >
+                <Tab
+                  sx={{ textTransform: "initial" }}
+                  label={<GridViewIcon />}
+                  {...a11yProps(0)}
+                />
+                <Tab
+                  sx={{ textTransform: "initial" }}
+                  label={<SettingsIcon />}
+                  {...a11yProps(1)}
+                />
+              </Tabs>
+            </Box>
+
+            {/* Tabs for large screens */}
+            <Box sx={{ display: { xs: "none", xl: "initial" } }}>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                aria-label="basic tabs example"
+              >
+                <Tab
+                  sx={{ textTransform: "initial" }}
+                  label="My Posts"
+                  {...a11yProps(0)}
+                />
+                <Tab
+                  sx={{ textTransform: "initial" }}
+                  label="Settings"
+                  {...a11yProps(1)}
+                />
+              </Tabs>
+            </Box>
+          </Stack>
+        </Box>
 
         {/* Stats */}
         <Stack
           direction="row"
           spacing={2}
           position="absolute"
-          left={200}
           sx={{
             display: "flex",
-            top: { xs: 24, lg: 54 },
-            left: { xs: 160, sm: 170, lg: 700 },
-            gap: { xs: 0, lg: 6 },
+            top: { xs: 24, xl: 54 },
+            left: { xs: 170, sm: 180, md: 210, lg: 260, xl: 700 },
+            gap: { xs: 0, xl: 6 },
           }}
         >
           {[
@@ -116,14 +245,14 @@ export default function Profile() {
             <Stack key={item.label} alignItems="center" spacing={1}>
               <Typography
                 fontWeight={700}
-                sx={{ fontSize: { xs: 18, lg: 24 } }}
+                sx={{ fontSize: { xs: 18, xl: 24 } }}
                 color="#27364B"
               >
                 {item.value}
               </Typography>
               <Typography
-                fontWeight={400}
-                sx={{ fontSize: { xs: 12, sm: 14 } }}
+                fontWeight={500}
+                sx={{ fontSize: { xs: 12, md: 13 } }}
                 color="#4B5669"
               >
                 {item.label}
@@ -133,31 +262,141 @@ export default function Profile() {
         </Stack>
       </Box>
 
-      <Box sx={{ display: "flex", gap: 15 }}>
-        <Box sx={{ width: "100%" }}>
-          {loading ? (
-            <Loading />
-          ) : myPosts && myPosts.length > 0 ? (
-            myPosts.map((post) => <PostCard key={post.id} postInfo={post} />)
-          ) : (
+      <Box sx={{ width: "100%" }}>
+        <CustomTabPanel value={value} index={0}>
+          <Box sx={{ display: "flex", width: "100%" }}>
+            <Box sx={{ flexGrow: 1 }}>
+              {myPosts && myPosts.length > 0 ? (
+                myPosts.map((post) => (
+                  <PostCard key={post.id} postInfo={post} />
+                ))
+              ) : loading ? (
+                <Loading />
+              ) : (
+                <Box
+                  sx={{
+                    height: "300px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography variant="h6" color="text.secondary">
+                    No posts found.
+                  </Typography>
+                </Box>
+              )}
+            </Box>
+
+            <Box sx={{ display: { xs: "none", xl: "block" }, ml: 4 }}>
+              <SuggestedFriendsCard />
+              <Footer />
+            </Box>
+          </Box>
+        </CustomTabPanel>
+
+        <CustomTabPanel value={value} index={1}>
+          <Box
+            sx={{
+              width: "100%",
+              bgcolor: "white",
+              borderRadius: 2,
+              border: "1px solid #ECF0F5",
+              overflow: "hidden",
+              mx: "auto",
+              p: { xs: 2, xl: 3 },
+              display: "flex",
+              flexDirection: { xs: "column", xl: "row" },
+              gap: { xs: 2, xl: 0 },
+            }}
+          >
+            {/* Sidebar */}
             <Box
               sx={{
-                height: "300px", 
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+                width: { xs: "100%", xl: 265 },
+                borderRight: { xl: "1px solid #F1F4F9" },
+                borderBottom: { xs: "1px solid #F1F4F9", xl: "none" },
+                pb: { xs: 1, xl: 0 },
+                display: { xs: "initial", xl: "none" },
               }}
             >
-              <Typography variant="h6" color="text.secondary">
-                No posts found.
-              </Typography>
+              <List component="nav" sx={{ p: 0 }}>
+                <ListItemText
+                  primary="General"
+                  primaryTypographyProps={{
+                    fontSize: 14,
+                    color: "#27364B",
+                    textAlign: { xs: "center", xl: "start" },
+                  }}
+                />
+              </List>
             </Box>
-          )}
-        </Box>
-        <Box sx={{ display: { xs: "none", lg: "initial" } }}>
-          <SuggestedFriendsCard />
-          <Footer />
-        </Box>
+
+            {/* Form */}
+            <Box sx={{ flexGrow: 1, pl: { xl: 4 } }}>
+              <Typography
+                sx={{
+                  fontWeight: 500,
+                  fontSize: 20,
+                  color: "#0C1024",
+                  mb: 3,
+                  textAlign: { xs: "center", xl: "start" },
+                  display: { xs: "none", xl: "flex" },
+                }}
+              >
+                Settings
+              </Typography>
+
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  flexDirection: "column",
+                  gap: 2,
+                }}
+              >
+                <Button
+                  component="label"
+                  variant="outlined"
+                  sx={{
+                    width: { xs: "100%", sm: "70%", xl: "50%" },
+                    borderColor: "#ABB0B9",
+                    borderRadius: 1.5,
+                    height: 60,
+                  }}
+                >
+                  <VisuallyHiddenInput type="file" ref={PhotoRef} />
+                  <Typography
+                    sx={{
+                      color: "#4B5669",
+                      fontWeight: 400,
+                      fontSize: 14,
+                      textTransform: "none",
+                    }}
+                  >
+                    Choose an image for avatar
+                  </Typography>
+                </Button>
+
+                <Button
+                  onClick={geUserPhoto}
+                  variant="contained"
+                  sx={{
+                    width: { xs: "100%", sm: "70%", xl: "50%" },
+                    bgcolor: "#0C1024",
+                    color: "white",
+                    height: 44,
+                    textTransform: "none",
+                    borderRadius: 1.5,
+                    mb: 2,
+                  }}
+                >
+                  Save Changes
+                </Button>
+              </Box>
+            </Box>
+          </Box>
+        </CustomTabPanel>
       </Box>
     </>
   );

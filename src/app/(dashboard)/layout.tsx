@@ -37,7 +37,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
     <>
       <Navbar />
-      <Box sx={{minHeight:"100vh", bgcolor: "#FAFBFF", py: { xs: 0, lg: 3 }, my: { xs: 0 } }}>
+      <Box sx={{minHeight:"100vh", bgcolor: "#FAFBFF", py: { xs: 0, xl: 3 }, my: { xs: 0 } }}>
         <Grid
           container
           sx={{ mx: { xs: 1, xl: 5 }, py: 3, my: { xs: 0, md: 8 } }}
@@ -48,7 +48,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           </Grid>
 
           {/* Main Content */}
-          <Grid size={{ xs: 12, md: isProfile || isNotifications ? 9 : 6 }}>
+          <Grid size={{ xs: 12, xl: isProfile || isNotifications ? 9 : 6 }}>
             {children}
           </Grid>
 
@@ -57,7 +57,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
               {/* Suggestions*/}
               <Grid
                 size={3}
-                sx={{ pl: 5, display: { xs: "none", md: "block" } }}
+                sx={{ pl: 5, display: { xs: "none", xl: "block" } }}
               >
                 <Box
                   sx={{

@@ -154,13 +154,13 @@ const PostCard = ({
           <Box
             component={"img"}
             src={postInfo.user.photo}
-            sx={{ width: { xs: "45px", lg: "50px" } }}
+            sx={{ width: { xs: "45px", xl: "50px" } }}
             alt={postInfo.user.name}
           />
           <Box>
             <Typography
               sx={{
-                fontSize: { xs: 15, lg: 17 },
+                fontSize: { xs: 15, xl: 17 },
                 fontWeight: 500,
                 color: "#0C1024",
               }}
@@ -169,7 +169,7 @@ const PostCard = ({
             </Typography>
             <Typography
               sx={{
-                fontSize: { xs: 13, lg: 15 },
+                fontSize: { xs: 13, xl: 15 },
                 fontWeight: 400,
                 color: "#707988",
               }}
@@ -261,7 +261,8 @@ const PostCard = ({
                 height: {
                   xs: 200,
                   sm: 300,
-                  md: 500,
+                  lg: 400,
+                  xl: 500,
                 },
               }}
             >
@@ -315,15 +316,15 @@ const PostCard = ({
               src={commentImage.src}
               alt="Comment"
               sx={{
-                width: { xs: "20px", lg: "24px" },
-                height: { xs: "20px", lg: "24px" },
+                width: { xs: "20px", xl: "24px" },
+                height: { xs: "20px", xl: "24px" },
                 objectFit: "cover",
               }}
             />
 
             <Typography
               sx={{
-                fontSize: { xs: 14, lg: 17 },
+                fontSize: { xs: 14, xl: 17 },
                 fontWeight: 500,
                 color: "#5D6778",
                 lineHeight: "24.5px",
@@ -339,8 +340,8 @@ const PostCard = ({
               src={LikeImage.src}
               alt="Like"
               sx={{
-                width: { xs: "20px", lg: "24px" },
-                height: { xs: "20px", lg: "24px" },
+                width: { xs: "20px", xl: "24px" },
+                height: { xs: "20px", xl: "24px" },
                 objectFit: "cover",
               }}
             />
@@ -432,7 +433,7 @@ const PostCard = ({
                 </InputAdornment>
               }
               sx={{
-                height: { xs: 40, lg: 44 },
+                height: { xs: 40, xl: 44 },
                 borderRadius: 1.5,
                 pr: 2,
               }}
