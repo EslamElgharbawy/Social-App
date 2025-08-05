@@ -27,8 +27,6 @@ const SuggestedFriendsCard = ({ fixed = false }: { fixed?: boolean }) => {
           width: 320,
           height: 435,
           position: fixed ? 'fixed' : 'relative',
-          top: fixed ? 100 : 'auto',
-          right: fixed ? 50 : 'auto',
           overflow: 'hidden',
           borderRadius: 2,
           border: '1px solid #ECF0F5',

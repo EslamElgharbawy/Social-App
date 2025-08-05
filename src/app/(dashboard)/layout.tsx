@@ -37,11 +37,15 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
     <>
       <Navbar />
-      <Box sx={{minHeight:"100vh", bgcolor: "#FAFBFF", py: { xs: 0, xl: 3 }, my: { xs: 0 } }}>
-        <Grid
-          container
-          sx={{ mx: { xs: 1, xl: 5 }, py: 3, my: { xs: 0, md: 8 } }}
-        >
+      <Box
+        sx={{
+          minHeight: "100vh",
+          bgcolor: "#FAFBFF",
+          py: { xs: 0, xl: 3 },
+          my: { xs: 0 },
+        }}
+      >
+        <Grid container sx={{ mx: { xs: 1, xl: 5 }, py: 3, my: 8 }}>
           {/* Sidebar */}
           <Grid size={3} sx={{ display: { xs: "none", xl: "block" } }}>
             <UserCard />
@@ -59,16 +63,8 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                 size={3}
                 sx={{ pl: 5, display: { xs: "none", xl: "block" } }}
               >
-                <Box
-                  sx={{
-                    position: "sticky",
-                    top: 100,
-                    alignSelf: "flex-start",
-                  }}
-                >
-                  <SuggestedFriendsCard fixed />
-                  <Footer fixed />
-                </Box>
+                <SuggestedFriendsCard fixed />
+                <Footer fixed />
               </Grid>
             </>
           )}

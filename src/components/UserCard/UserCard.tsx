@@ -70,7 +70,7 @@ const UserCard = () => {
       </Box>
 
       {/*Nav list*/}
-      <Box sx={{ position: 'absolute', top: 206, left: 23 }}>
+      <Box sx={{ position: 'absolute', top: 180, left: 23 }}>
         <List sx={{ width: 235 }}>
           {NavItems.map((item, index) => {
             const isSelected = pathName === item.path;
