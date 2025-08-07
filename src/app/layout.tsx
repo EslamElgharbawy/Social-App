@@ -1,14 +1,12 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
-import { Provider } from 'react-redux';
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
 import theme from '../theme';
 
-import "./globals.css";
-import { Store } from "@/store/store";
 import ReduxProvider from "@/components/ReduxProvider/ReduxProvider";
 import { Toaster } from "react-hot-toast";
+import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

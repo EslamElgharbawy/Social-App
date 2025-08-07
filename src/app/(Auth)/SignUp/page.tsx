@@ -1,5 +1,5 @@
 "use client";
-import { SignUp } from "@/Features/user.slice";
+import { signUp } from "@/Features/user.slice";
 import { useAppDispatch } from "@/hooks/Store.hooks";
 import {
   Box,
@@ -11,7 +11,7 @@ import {
 import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
 
-export default function page() {
+export default function SignUp() {
   const router = useRouter();
   const dispatsh = useAppDispatch();
 
@@ -25,7 +25,7 @@ export default function page() {
       gender: "",
     },
     onSubmit: (values) => {
-      dispatsh(SignUp(values))
+      dispatsh(signUp(values))
         .then((res) => {
           if (res.payload.message == "success") {
             setTimeout(() => {

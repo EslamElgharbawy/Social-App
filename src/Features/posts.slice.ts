@@ -1,3 +1,4 @@
+import { RootStore } from "@/store/store";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { PostState } from "../types/posts.type";
@@ -9,59 +10,62 @@ const initialState: PostState = {
   loading: false,
 };
 
-const getToken = (getState: any): string | null => {
+const getToken = (getState: () => RootStore): string | null => {
   const state = getState();
   return state.userReducer.token || localStorage.getItem("token");
 };
 
-// GET: All Posts
-export const getPosts = createAsyncThunk(
+//^ GET: All Posts
+export const getPosts = createAsyncThunk<any, void, { state: RootStore }>(
   "posts/getPosts",
   async (_, { getState }) => {
     const token = getToken(getState);
 
-    const response = await axios.get(
-      "https://linked-posts.routemisr.com/posts?limit=50&page=98",
-      {
-        headers: { token },
-      }
-    );
-
-    return response.data.posts;
+    const options = {
+      url: "https://linked-posts.routemisr.com/posts?limit=50&page=98",
+      method: "GET",
+      headers: {
+        token,
+      },
+    };
+    let { data } = await axios.request(options);
+    return data.posts;
   }
 );
 
-// GET: Single Post Details
-export const getPostDetails = createAsyncThunk(
-  "posts/getPostDetails",
-  async (postId: string, { getState }) => {
-    const token = getToken(getState);
+//? GET: Single Post Details
+export const getPostDetails = createAsyncThunk<
+  any,
+  string,
+  { state: RootStore }
+>("posts/getPostDetails", async (postId, { getState }) => {
+  const token = getToken(getState);
+  const options = {
+    url: `https://linked-posts.routemisr.com/posts/${postId}`,
+    method: "GET",
+    headers: {
+      token,
+    },
+  };
+  let { data } = await axios.request(options);
+  return data.post;
+});
 
-    const response = await axios.get(
-      `https://linked-posts.routemisr.com/posts/${postId}`,
-      {
-        headers: { token },
-      }
-    );
-
-    return response.data.post;
-  }
-);
-
-// GET: My Posts
-export const getMyPosts = createAsyncThunk(
+//~ GET: My Posts
+export const getMyPosts = createAsyncThunk<any, string, { state: RootStore }>(
   "posts/getMyPosts",
   async (userId: string, { getState }) => {
     const token = getToken(getState);
 
-    const response = await axios.get(
-      `https://linked-posts.routemisr.com/users/${userId}/posts?limit=2`,
-      {
-        headers: { token },
-      }
-    );
-
-    return response.data.posts;
+    const options = {
+      url: `https://linked-posts.routemisr.com/users/${userId}/posts?limit=2`,
+      method: "GET",
+      headers: {
+        token,
+      },
+    };
+    let { data } = await axios.request(options);
+    return data.posts;
   }
 );
 

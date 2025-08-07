@@ -1,6 +1,5 @@
-import { useAppSelector } from "@/hooks/Store.hooks";
 import { Comment } from "@/types/posts.type";
-import { Box, Avatar, Typography } from "@mui/material";
+import { Avatar, Box, Typography } from "@mui/material";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);

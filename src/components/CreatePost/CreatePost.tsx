@@ -13,6 +13,7 @@ const CreatePost = () => {
   let { token } = useAppSelector((store) => store.userReducer);
   let [inPost, setinPost] = useState(false);
 
+  // & Hidden file input style
   const VisuallyHiddenInput = styled("input")({
     clip: "rect(0 0 0 0)",
     clipPath: "inset(50%)",
@@ -28,7 +29,7 @@ const CreatePost = () => {
   const postFile = useRef<HTMLInputElement>(null);
 
   const handelValue = () => {
-    const currentValue = postContent.current?.value || "" ;
+    const currentValue = postContent.current?.value || "";
     setinPost(currentValue.trim().length > 0);
   };
 
@@ -57,7 +58,7 @@ const CreatePost = () => {
         dispatch(getPosts());
         if (postContent.current) {
           postContent.current.value = "";
-        setinPost(false)
+          setinPost(false);
         }
       }
     } catch (error) {

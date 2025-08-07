@@ -67,7 +67,7 @@ const SuggestedFriendsCard = ({ fixed = false }: { fixed?: boolean }) => {
             key={index}
             sx={{
               position: 'absolute',
-              top: 99 + index * 80, // top positions: 99, 179, 259, 339
+              top: 99 + index * 80, 
               left: 32,
               width: 256,
               display: 'inline-flex',

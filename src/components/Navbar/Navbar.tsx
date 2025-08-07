@@ -6,8 +6,7 @@ import {
   Avatar,
   Box,
   Button,
-  Toolbar,
-  Typography,
+  Typography
 } from "@mui/material";
 
 export default function Navbar() {

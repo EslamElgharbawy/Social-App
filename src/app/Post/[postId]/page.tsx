@@ -1,6 +1,7 @@
 "use client";
 import Footer from "@/components/Footer/Footer";
 import Loading from "@/components/Loading/Loading";
+import Navbar from "@/components/Navbar/Navbar";
 import PostCard from "@/components/PostCard/PostCard";
 import SuggestedFriendsCard from "@/components/SuggestedFriends/SuggestedFriends";
 import UserCard from "@/components/UserCard/UserCard";
@@ -8,9 +9,9 @@ import { getPostDetails } from "@/Features/posts.slice";
 import { setToken } from "@/Features/user.slice";
 import { geUserInfo } from "@/Features/UserInfo.slice";
 import { useAppDispatch, useAppSelector } from "@/hooks/Store.hooks";
-import { Box, Container, Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { use, useEffect } from "react";
-export default function post({
+export default function Post({
   params,
 }: {
   params: Promise<{ postId: string }>;
@@ -26,6 +27,7 @@ export default function post({
   }, []);
   return (
     <>
+      <Navbar />
       <Box
         sx={{
           minHeight: "100vh",
@@ -44,7 +46,9 @@ export default function post({
           <Grid size={{ xs: 12, xl: 6 }}>
             {postDetails ? (
               <PostCard postInfo={postDetails} ShowAllComments />
-            ) : <Loading/>}
+            ) : (
+              <Loading />
+            )}
           </Grid>
 
           {/* Suggestions*/}

@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 import { login } from "@/Features/user.slice";
 import { useAppDispatch } from "@/hooks/Store.hooks";
 
-export default function page() {
+export default function Login() {
   const router = useRouter();
   const dispatsh = useAppDispatch();
   const formik = useFormik({

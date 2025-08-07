@@ -36,23 +36,6 @@ export const signUp = createAsyncThunk(
   }
 );
 
-export const changePassword = createAsyncThunk(
-  "user/changePassword",
-  async (values: { password: string; newPassword: string }) => {
-    const token = localStorage.getItem("token");
-
-    const { data } = await axios.patch(
-      "https://linked-posts.routemisr.com/users/change-password",
-      values,
-      {
-        headers: { token },
-      }
-    );
-
-    return data;
-  }
-);
-
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -63,14 +46,14 @@ const userSlice = createSlice({
       localStorage.removeItem("token");
     },
 
-    // Set token manually (if needed)
+    // Set token manually 
     setToken: (state, action) => {
       state.token = action.payload;
     },
   },
 
   extraReducers: (builder) => {
-    // Login
+    //& Login
     builder.addCase(login.fulfilled, (state, action) => {
       const token = action.payload.token;
       state.token = token;
@@ -82,29 +65,13 @@ const userSlice = createSlice({
       toast.error("Incorrect email or password", { position: "top-right" });
     });
 
-    // Sign Up
+    //* Sign Up
     builder.addCase(signUp.fulfilled, () => {
       toast.success("Account created successfully!", { position: "top-right" });
     });
 
     builder.addCase(signUp.rejected, () => {
       toast.error("Failed to create account. Please try again.", {
-        position: "top-right",
-      });
-    });
-
-    // Change Password
-    builder.addCase(changePassword.fulfilled, (state, action) => {
-      const token = action.payload.token;
-      state.token = token;
-      localStorage.setItem("token", token);
-      toast.success("Password changed successfully!", {
-        position: "top-right",
-      });
-    });
-
-    builder.addCase(changePassword.rejected, () => {
-      toast.error("Failed to change password. Please try again.", {
         position: "top-right",
       });
     });
