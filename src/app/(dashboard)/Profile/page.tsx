@@ -4,24 +4,23 @@ import Loading from "@/components/Loading/Loading";
 import PostCard from "@/components/PostCard/PostCard";
 import SuggestedFriendsCard from "@/components/SuggestedFriends/SuggestedFriends";
 import { getMyPosts } from "@/Features/posts.slice";
+import { geUserInfo } from "@/Features/UserInfo.slice";
 import { useAppDispatch, useAppSelector } from "@/hooks/Store.hooks";
-import SettingsIcon from "@mui/icons-material/Settings";
+import styled from "@emotion/styled";
 import GridViewIcon from "@mui/icons-material/GridView";
+import SettingsIcon from "@mui/icons-material/Settings";
 import {
   Avatar,
   Box,
   Button,
   Divider,
-  List,
-  ListItemText,
   Stack,
   Tab,
   Tabs,
-  Typography,
+  Typography
 } from "@mui/material";
-import React, { useEffect, useRef } from "react";
 import axios from "axios";
-import styled from "@emotion/styled";
+import React, { useEffect, useRef } from "react";
 import toast from "react-hot-toast";
 
 export default function Profile() {
@@ -29,6 +28,7 @@ export default function Profile() {
   const { myPosts, loading } = useAppSelector((store) => store.postReducer);
   const { token } = useAppSelector((store) => store.userReducer);
   const dispatch = useAppDispatch();
+  
   const VisuallyHiddenInput = styled("input")({
     clip: "rect(0 0 0 0)",
     clipPath: "inset(50%)",
@@ -40,13 +40,7 @@ export default function Profile() {
     whiteSpace: "nowrap",
     width: 1,
   });
-  useEffect(() => {
-    const userId = user?._id;
-    if (userId) {
-      dispatch(getMyPosts(userId));
-    }
-  }, [user]);
-
+  
   const PhotoRef = useRef<HTMLInputElement>(null);
   async function geUserPhoto() {
     const toastId = toast.loading("Please wait...", { position: "top-center" });
@@ -71,6 +65,7 @@ export default function Profile() {
           id: toastId,
           position: "top-center",
         });
+        dispatch(geUserInfo())
       } else {
         toast.error("Upload failed", { id: toastId, position: "top-center" });
       }
@@ -97,7 +92,7 @@ export default function Profile() {
         aria-labelledby={`simple-tab-${index}`}
         {...other}
       >
-        {value === index && <Box >{children}</Box>}
+        {value === index && <Box>{children}</Box>}
       </div>
     );
   }
@@ -114,6 +109,13 @@ export default function Profile() {
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+
+  useEffect(() => {
+    const userId = user?._id;
+    if (userId) {
+      dispatch(getMyPosts(userId));
+    }
+  }, [user]);
   return (
     <>
       <Box
@@ -146,6 +148,9 @@ export default function Profile() {
               width: { xs: 74, xl: 96 },
               height: { xs: 74, xl: 96 },
               border: "2px solid white",
+              "& img": {
+                objectFit: "cover",
+              },
             }}
           />
           <Box position="relative">
@@ -304,44 +309,23 @@ export default function Profile() {
               border: "1px solid #ECF0F5",
               overflow: "hidden",
               mx: "auto",
-              p: { xs: 2, xl: 3 },
+              p: 3,
               display: "flex",
               flexDirection: { xs: "column", xl: "row" },
               gap: { xs: 2, xl: 0 },
             }}
           >
-            {/* Sidebar */}
-            <Box
-              sx={{
-                width: { xs: "100%", xl: 265 },
-                borderRight: { xl: "1px solid #F1F4F9" },
-                borderBottom: { xs: "1px solid #F1F4F9", xl: "none" },
-                pb: { xs: 1, xl: 0 },
-                display: { xs: "initial", xl: "none" },
-              }}
-            >
-              <List component="nav" sx={{ p: 0 }}>
-                <ListItemText
-                  primary="General"
-                  primaryTypographyProps={{
-                    fontSize: 14,
-                    color: "#27364B",
-                    textAlign: { xs: "center", xl: "start" },
-                  }}
-                />
-              </List>
-            </Box>
-
             {/* Form */}
             <Box sx={{ flexGrow: 1, pl: { xl: 4 } }}>
               <Typography
                 sx={{
-                  fontWeight: 500,
-                  fontSize: 20,
+                  fontWeight: { xs: 400, xl: 500 },
+                  fontSize: { xs: 18, xl: 20 },
                   color: "#0C1024",
+                  borderBottom: { xs: "1px solid #E1E5EB", xl: "none" },
+                  pb: { xs: 2, xl: 0 },
                   mb: 3,
                   textAlign: { xs: "center", xl: "start" },
-                  display: { xs: "none", xl: "flex" },
                 }}
               >
                 Settings
@@ -359,7 +343,7 @@ export default function Profile() {
                   component="label"
                   variant="outlined"
                   sx={{
-                    width: { xs: "100%", sm: "70%", xl: "50%" },
+                    width: { xs: "100%", xl: "50%" },
                     borderColor: "#ABB0B9",
                     borderRadius: 1.5,
                     height: 60,
@@ -382,7 +366,7 @@ export default function Profile() {
                   onClick={geUserPhoto}
                   variant="contained"
                   sx={{
-                    width: { xs: "100%", sm: "70%", xl: "50%" },
+                    width: { xs: "100%",xl: "50%" },
                     bgcolor: "#0C1024",
                     color: "white",
                     height: 44,

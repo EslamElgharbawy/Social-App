@@ -38,18 +38,18 @@ export default function page() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          bgcolor: "#FAFBFF",
+          bgcolor: { xl: "#FAFBFF" },
           p: 2,
         }}
       >
         <Box
           sx={{
             width: 384,
-            bgcolor: "white",
-            borderRadius: 2,
-            boxShadow: "2px 2px 10px rgba(0, 0, 0, 0.01)",
-            outline: "1px solid #ECF0F5",
-            outlineOffset: "-1px",
+            bgcolor: { xl: "white" },
+            borderRadius: { xl: 2 },
+            boxShadow: { xl: "2px 2px 10px rgba(0, 0, 0, 0.01)" },
+            outline: { xl: "1px solid #ECF0F5" },
+            outlineOffset: { xl: "-1px" },
             display: "flex",
             flexDirection: "column",
             px: 4,
@@ -111,28 +111,13 @@ export default function page() {
               name="password"
             />
 
-            {/* Forget password */}
-            <Typography
-              align="right"
-              sx={{
-                color: "#5D6778",
-                fontSize: 12,
-                cursor: "pointer",
-                transition: "color 0.2s ease",
-                "&:hover": {
-                  color: "#0C1024",
-                },
-              }}
-            >
-              Forget Password?
-            </Typography>
 
             {/* Login button */}
             <Button
               fullWidth
               type="submit"
               sx={{
-                backgroundColor: "#2A2E46",
+                backgroundColor: "#27364B",
                 color: "white",
                 textTransform: "none",
                 borderRadius: 1,

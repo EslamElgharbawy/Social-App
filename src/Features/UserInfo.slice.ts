@@ -1,4 +1,3 @@
-import { userReducer } from "@/Features/user.slice";
 import { UserInfoState } from "@/types/UserInfo.type";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";

@@ -41,7 +41,7 @@ export default function RootLayout({
             <ReduxProvider>
               {children}
               </ReduxProvider>
-                    <Toaster position="top-right" />
+                    <Toaster />
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

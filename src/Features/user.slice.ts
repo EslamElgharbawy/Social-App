@@ -1,27 +1,25 @@
 import axios from "axios";
-import { UserState } from "../types/user.type";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
+import { UserState } from "../types/user.type";
 
 const initialState: UserState = {
   token: null,
 };
 
-export let login = createAsyncThunk(
+export const login = createAsyncThunk(
   "user/login",
   async (values: { email: string; password: string }) => {
-    const options = {
-      url: "https://linked-posts.routemisr.com/users/signin",
-      method: "POST",
-      data: values,
-    };
-    let { data } = await axios.request(options);
+    const { data } = await axios.post(
+      "https://linked-posts.routemisr.com/users/signin",
+      values
+    );
     return data;
   }
 );
 
-export let SignUp = createAsyncThunk(
-  "user/SignUp",
+export const signUp = createAsyncThunk(
+  "user/signUp",
   async (values: {
     name: string;
     email: string;
@@ -30,12 +28,27 @@ export let SignUp = createAsyncThunk(
     dateOfBirth: string;
     gender: string;
   }) => {
-    const options = {
-      url: "https://linked-posts.routemisr.com/users/signup",
-      method: "POST",
-      data: values,
-    };
-    let { data } = await axios.request(options);
+    const { data } = await axios.post(
+      "https://linked-posts.routemisr.com/users/signup",
+      values
+    );
+    return data;
+  }
+);
+
+export const changePassword = createAsyncThunk(
+  "user/changePassword",
+  async (values: { password: string; newPassword: string }) => {
+    const token = localStorage.getItem("token");
+
+    const { data } = await axios.patch(
+      "https://linked-posts.routemisr.com/users/change-password",
+      values,
+      {
+        headers: { token },
+      }
+    );
+
     return data;
   }
 );
@@ -44,35 +57,59 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    // Logout
     logout: (state) => {
       state.token = null;
       localStorage.removeItem("token");
     },
+
+    // Set token manually (if needed)
     setToken: (state, action) => {
       state.token = action.payload;
     },
   },
-  extraReducers(builder) {
+
+  extraReducers: (builder) => {
+    // Login
     builder.addCase(login.fulfilled, (state, action) => {
-      state.token = action.payload.token;
-      localStorage.setItem("token", action.payload.token);
-      toast.success("Welcome back!", {
-        duration:3000,
-        position: "top-center", 
-      });
-      
+      const token = action.payload.token;
+      state.token = token;
+      localStorage.setItem("token", token);
+      toast.success("Welcome back!", { duration: 3000 });
     });
+
     builder.addCase(login.rejected, () => {
-      toast.error("Incorrect email or password");
+      toast.error("Incorrect email or password", { position: "top-right" });
     });
-    builder.addCase(SignUp.fulfilled, () => {
-      toast.success("Account created successfully!");
+
+    // Sign Up
+    builder.addCase(signUp.fulfilled, () => {
+      toast.success("Account created successfully!", { position: "top-right" });
     });
-    builder.addCase(SignUp.rejected, () => {
-      toast.error("Failed to create account. Please try again.");
+
+    builder.addCase(signUp.rejected, () => {
+      toast.error("Failed to create account. Please try again.", {
+        position: "top-right",
+      });
+    });
+
+    // Change Password
+    builder.addCase(changePassword.fulfilled, (state, action) => {
+      const token = action.payload.token;
+      state.token = token;
+      localStorage.setItem("token", token);
+      toast.success("Password changed successfully!", {
+        position: "top-right",
+      });
+    });
+
+    builder.addCase(changePassword.rejected, () => {
+      toast.error("Failed to change password. Please try again.", {
+        position: "top-right",
+      });
     });
   },
 });
 
 export const userReducer = userSlice.reducer;
-export const { setToken, logout } = userSlice.actions;
+export const { logout, setToken } = userSlice.actions;
