@@ -359,13 +359,13 @@ const PostCard = ({
           {localPostInfo.comments &&
             localPostInfo.comments.length > 0 &&
             !ShowAllComments && (
-              <CommentCard CommentInfo={localPostInfo.comments[0]} />
+              <CommentCard CommentInfo={localPostInfo.comments[0]} onCommentDeleted={getComments}/>
             )}
           {localPostInfo.comments &&
             localPostInfo.comments.length > 1 &&
             ShowAllComments &&
             localPostInfo.comments.map((comment) => (
-              <CommentCard key={comment._id} CommentInfo={comment} />
+              <CommentCard key={comment._id} CommentInfo={comment} onCommentDeleted={getComments}/>
             ))}
         </Box>
 

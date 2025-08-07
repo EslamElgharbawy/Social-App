@@ -22,7 +22,7 @@ export const getPosts = createAsyncThunk<any, void, { state: RootStore }>(
     const token = getToken(getState);
 
     const options = {
-      url: "https://linked-posts.routemisr.com/posts?limit=50&page=98",
+      url: "https://linked-posts.routemisr.com/posts?limit=50&page=99",
       method: "GET",
       headers: {
         token,

@@ -45,7 +45,7 @@ export default function Post({
           {/* Main Content */}
           <Grid size={{ xs: 12, xl: 6 }}>
             {postDetails ? (
-              <PostCard postInfo={postDetails} ShowAllComments />
+              <PostCard key={postDetails._id} postInfo={postDetails} ShowAllComments />
             ) : (
               <Loading />
             )}
