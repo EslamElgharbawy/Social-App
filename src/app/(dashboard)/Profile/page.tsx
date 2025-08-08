@@ -17,7 +17,7 @@ import {
   Stack,
   Tab,
   Tabs,
-  Typography
+  Typography,
 } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useRef } from "react";
@@ -28,7 +28,7 @@ export default function Profile() {
   const { myPosts, loading } = useAppSelector((store) => store.postReducer);
   const { token } = useAppSelector((store) => store.userReducer);
   const dispatch = useAppDispatch();
-  
+
   const VisuallyHiddenInput = styled("input")({
     clip: "rect(0 0 0 0)",
     clipPath: "inset(50%)",
@@ -40,7 +40,7 @@ export default function Profile() {
     whiteSpace: "nowrap",
     width: 1,
   });
-  
+
   const PhotoRef = useRef<HTMLInputElement>(null);
   async function geUserPhoto() {
     const toastId = toast.loading("Please wait...", { position: "top-center" });
@@ -65,7 +65,7 @@ export default function Profile() {
           id: toastId,
           position: "top-center",
         });
-        dispatch(geUserInfo())
+        dispatch(geUserInfo());
       } else {
         toast.error("Upload failed", { id: toastId, position: "top-center" });
       }
@@ -137,7 +137,7 @@ export default function Profile() {
             position: "absolute",
             gap: { xs: 2, xl: 3 },
             top: { xs: 12, xl: 32 },
-            left: { xs: 14, xl: 44 },
+            left: { xs: 14, lg: 44 },
           }}
           direction={{ xs: "column", xl: "row" }}
           alignItems={{ xs: "center", xl: "flex-start" }}
@@ -145,8 +145,8 @@ export default function Profile() {
           <Avatar
             src={user?.photo}
             sx={{
-              width: { xs: 74, xl: 96 },
-              height: { xs: 74, xl: 96 },
+              width: { xs: 74, lg: 86, xl: 96 },
+              height: { xs: 74, lg: 86, xl: 96 },
               border: "2px solid white",
               "& img": {
                 objectFit: "cover",
@@ -159,7 +159,7 @@ export default function Profile() {
               fontWeight={600}
               color="#27364B"
               sx={{
-                fontSize: { xs: 18, xl: 22 },
+                fontSize: { xs: 18, lg: 20, xl: 22 },
               }}
             >
               {user?.name}
@@ -184,12 +184,12 @@ export default function Profile() {
             sx={{
               position: "absolute",
               top: { xs: 166, xl: 175 },
-              left: { xs: "50%", xl: 40 },
+              left: { xs: "50%", lg: 120, xl: 40 },
               transform: { xs: "translateX(-50%)", xl: "none" },
             }}
           >
             {/* Tabs for small screens */}
-            <Box sx={{ display: { xs: "initial", xl: "none" } }}>
+            <Box sx={{ display: { xs: "initial", lg: "none" } }}>
               <Tabs
                 value={value}
                 onChange={handleChange}
@@ -209,7 +209,7 @@ export default function Profile() {
             </Box>
 
             {/* Tabs for large screens */}
-            <Box sx={{ display: { xs: "none", xl: "initial" } }}>
+            <Box sx={{ display: { xs: "none", lg: "initial" } }}>
               <Tabs
                 value={value}
                 onChange={handleChange}
@@ -238,7 +238,7 @@ export default function Profile() {
           sx={{
             display: "flex",
             top: { xs: 24, xl: 54 },
-            left: { xs: 170, sm: 180, md: 210, lg: 260, xl: 700 },
+            left: { xs: 175, sm: 220, md: 260, lg: 560, xl: 700 },
             gap: { xs: 0, xl: 6 },
           }}
         >
@@ -250,14 +250,14 @@ export default function Profile() {
             <Stack key={item.label} alignItems="center" spacing={1}>
               <Typography
                 fontWeight={700}
-                sx={{ fontSize: { xs: 18, xl: 24 } }}
+                sx={{ fontSize: { xs: 18, lg: 22, xl: 24 } }}
                 color="#27364B"
               >
                 {item.value}
               </Typography>
               <Typography
                 fontWeight={500}
-                sx={{ fontSize: { xs: 12, md: 13 } }}
+                sx={{ fontSize: { xs: 12, md: 13, lg: 15 } }}
                 color="#4B5669"
               >
                 {item.label}
@@ -343,7 +343,7 @@ export default function Profile() {
                   component="label"
                   variant="outlined"
                   sx={{
-                    width: { xs: "100%", xl: "50%" },
+                    width: { xs: "100%", lg: "70%", xl: "50%" },
                     borderColor: "#ABB0B9",
                     borderRadius: 1.5,
                     height: 60,
@@ -366,7 +366,7 @@ export default function Profile() {
                   onClick={geUserPhoto}
                   variant="contained"
                   sx={{
-                    width: { xs: "100%",xl: "50%" },
+                    width: { xs: "100%", lg: "70%", xl: "50%" },
                     bgcolor: "#0C1024",
                     color: "white",
                     height: 44,
