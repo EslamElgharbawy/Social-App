@@ -24,7 +24,7 @@ import React, { useEffect, useRef } from "react";
 import toast from "react-hot-toast";
 
 export default function Profile() {
-  let { user } = useAppSelector((store) => store.UserInfoReducer);
+  const { user } = useAppSelector((store) => store.UserInfoReducer);
   const { myPosts, loading } = useAppSelector((store) => store.postReducer);
   const { token } = useAppSelector((store) => store.userReducer);
   const dispatch = useAppDispatch();
@@ -59,7 +59,7 @@ export default function Profile() {
         },
         data: UploadPhoto,
       };
-      let { data } = await axios.request(options);
+      const { data } = await axios.request(options);
       if (data.message === "success") {
         toast.success("Saved successfully", {
           id: toastId,
@@ -115,7 +115,7 @@ export default function Profile() {
     if (userId) {
       dispatch(getMyPosts(userId));
     }
-  }, [user]);
+  }, [user,dispatch]);
   return (
     <>
       <Box

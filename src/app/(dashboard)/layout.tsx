@@ -26,14 +26,14 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   const isHome = pathname === "/";
   const isProfile = pathname === "/Profile";
   const isNotifications = pathname === "/Notifications";
-  let { user } = useAppSelector((store) => store.UserInfoReducer);
+  const { user } = useAppSelector((store) => store.UserInfoReducer);
 
   const dispatch = useAppDispatch();
   useEffect(() => {
     const token = localStorage.getItem("token");
     dispatch(setToken(token));
     dispatch(geUserInfo());
-  }, []);
+  }, [dispatch]);
   return (
     <>
       <Navbar />

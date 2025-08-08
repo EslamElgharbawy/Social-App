@@ -36,7 +36,7 @@ const PostCard = ({
   const [InValue, setInValue] = useState(false);
   const dispatch = useAppDispatch();
   const commentInputRef = useRef<HTMLInputElement>(null);
-  let { user } = useAppSelector((store) => store.UserInfoReducer);
+  const { user } = useAppSelector((store) => store.UserInfoReducer);
   const { token } = useAppSelector((store) => store.userReducer);
 
   const handleInputChange = () => {
@@ -60,7 +60,7 @@ const PostCard = ({
         },
         data: JSON.stringify(commentData),
       };
-      let { data } = await axios.request(options);
+      const { data } = await axios.request(options);
       if (data.message == "success") {
         toast.success("Comment created");
         await getComments();
@@ -83,7 +83,7 @@ const PostCard = ({
           token,
         },
       };
-      let { data } = await axios.request(options);
+      const { data } = await axios.request(options);
       console.log(data);
       setLocalPostInfo({ ...postInfo, comments: data.comments });
     } catch (error) {
@@ -99,7 +99,7 @@ const PostCard = ({
           token,
         },
       };
-      let { data } = await axios.request(options);
+      const { data } = await axios.request(options);
       if (data.message === "success") {
         toast.success("Post has been deleted");
         dispatch(getPosts());
@@ -121,6 +121,8 @@ const PostCard = ({
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  
 
   return (
     <Box

@@ -9,9 +9,9 @@ import { getPosts } from "@/Features/posts.slice";
 
 const CreatePost = () => {
   const dispatch = useAppDispatch();
-  let { user } = useAppSelector((store) => store.UserInfoReducer);
-  let { token } = useAppSelector((store) => store.userReducer);
-  let [inPost, setinPost] = useState(false);
+  const { user } = useAppSelector((store) => store.UserInfoReducer);
+  const { token } = useAppSelector((store) => store.userReducer);
+  const [inPost, setinPost] = useState(false);
 
   // & Hidden file input style
   const VisuallyHiddenInput = styled("input")({
@@ -52,7 +52,7 @@ const CreatePost = () => {
         },
         data: postData,
       };
-      let { data } = await axios.request(options);
+      const { data } = await axios.request(options);
       if (data.message === "success") {
         toast.success("Post has been created");
         dispatch(getPosts());
@@ -66,6 +66,8 @@ const CreatePost = () => {
     }
   }
 
+
+  
   return (
     <Box
       sx={{

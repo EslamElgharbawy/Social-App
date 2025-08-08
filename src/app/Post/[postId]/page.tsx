@@ -18,13 +18,13 @@ export default function Post({
 }) {
   const { postId } = use(params);
   const dispatch = useAppDispatch();
-  let { postDetails } = useAppSelector((store) => store.postReducer);
+  const { postDetails } = useAppSelector((store) => store.postReducer);
   useEffect(() => {
     const token = localStorage.getItem("token");
     dispatch(setToken(token));
     dispatch(geUserInfo());
     dispatch(getPostDetails(postId));
-  }, []);
+  }, [dispatch,postId]);
   return (
     <>
       <Navbar />

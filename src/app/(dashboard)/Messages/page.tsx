@@ -21,7 +21,7 @@ import RonaldRichards from "@/assets/images/Img4.jpg";
 import { useAppSelector } from "@/hooks/Store.hooks";
 
 export default function Messages() {
-  let { user } = useAppSelector((store) => store.UserInfoReducer);
+  const { user } = useAppSelector((store) => store.UserInfoReducer);
 
   return (
     <Box
@@ -195,7 +195,7 @@ export default function Messages() {
               color="#27364B"
               lineHeight="24.5px"
             >
-              Hi, {user?.name}. I'm facing some challenges in optimizing my code
+              Hi, {user?.name}. I&apos;m facing some challenges in optimizing my code
               for performance. Can you help?
             </Typography>
             <Typography
@@ -229,9 +229,9 @@ export default function Messages() {
               color="white"
               lineHeight="24.5px"
             >
-              Hi, Bessie 👋 I'd be glad to help you with optimizing your code
+              Hi, Bessie 👋 I&apos;d be glad to help you with optimizing your code
               for better performance. To get started, could you provide me with
-              some more details about the specific challenges you're facing?
+              some more details about the specific challenges you&apos;re facing?
             </Typography>
             <Typography
               align="right"

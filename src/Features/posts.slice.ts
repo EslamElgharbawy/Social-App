@@ -1,7 +1,7 @@
 import { RootStore } from "@/store/store";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { PostState } from "../types/posts.type";
+import { Post, PostState } from "../types/posts.type";
 
 const initialState: PostState = {
   posts: null,
@@ -16,7 +16,7 @@ const getToken = (getState: () => RootStore): string | null => {
 };
 
 //^ GET: All Posts
-export const getPosts = createAsyncThunk<any, void, { state: RootStore }>(
+export const getPosts = createAsyncThunk<Post[], void, { state: RootStore }>(
   "posts/getPosts",
   async (_, { getState }) => {
     const token = getToken(getState);
@@ -28,14 +28,14 @@ export const getPosts = createAsyncThunk<any, void, { state: RootStore }>(
         token,
       },
     };
-    let { data } = await axios.request(options);
+    const { data } = await axios.request(options);
     return data.posts;
   }
 );
 
 //? GET: Single Post Details
 export const getPostDetails = createAsyncThunk<
-  any,
+  Post,
   string,
   { state: RootStore }
 >("posts/getPostDetails", async (postId, { getState }) => {
@@ -47,27 +47,28 @@ export const getPostDetails = createAsyncThunk<
       token,
     },
   };
-  let { data } = await axios.request(options);
+  const { data } = await axios.request(options);
   return data.post;
 });
 
 //~ GET: My Posts
-export const getMyPosts = createAsyncThunk<any, string, { state: RootStore }>(
-  "posts/getMyPosts",
-  async (userId: string, { getState }) => {
-    const token = getToken(getState);
+export const getMyPosts = createAsyncThunk<
+  Post[],
+  string,
+  { state: RootStore }
+>("posts/getMyPosts", async (userId: string, { getState }) => {
+  const token = getToken(getState);
 
-    const options = {
-      url: `https://linked-posts.routemisr.com/users/${userId}/posts?limit=2`,
-      method: "GET",
-      headers: {
-        token,
-      },
-    };
-    let { data } = await axios.request(options);
-    return data.posts;
-  }
-);
+  const options = {
+    url: `https://linked-posts.routemisr.com/users/${userId}/posts?limit=2`,
+    method: "GET",
+    headers: {
+      token,
+    },
+  };
+  const { data } = await axios.request(options);
+  return data.posts;
+});
 
 // Posts Slice
 const postsSlice = createSlice({

@@ -19,7 +19,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useAppSelector } from '@/hooks/Store.hooks';
 
 const UserCard = () => {
-  let { user } = useAppSelector((store) => store.UserInfoReducer)
+  const { user } = useAppSelector((store) => store.UserInfoReducer)
   const router = useRouter();
   const pathName = usePathname();
 

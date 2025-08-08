@@ -10,10 +10,12 @@ const initialState: UserState = {
 export const login = createAsyncThunk(
   "user/login",
   async (values: { email: string; password: string }) => {
-    const { data } = await axios.post(
-      "https://linked-posts.routemisr.com/users/signin",
-      values
-    );
+    const options = {
+      url: "https://linked-posts.routemisr.com/users/signin",
+      method: "POST",
+      data: values,
+    };
+    const { data } = await axios.request(options);
     return data;
   }
 );
@@ -28,10 +30,12 @@ export const signUp = createAsyncThunk(
     dateOfBirth: string;
     gender: string;
   }) => {
-    const { data } = await axios.post(
-      "https://linked-posts.routemisr.com/users/signup",
-      values
-    );
+    const options = {
+      url: "https://linked-posts.routemisr.com/users/signup",
+      method: "POST",
+      data: values,
+    };
+    const { data } = await axios.request(options);
     return data;
   }
 );
@@ -46,7 +50,7 @@ const userSlice = createSlice({
       localStorage.removeItem("token");
     },
 
-    // Set token manually 
+    // Set token manually
     setToken: (state, action) => {
       state.token = action.payload;
     },

@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 
 export default function Navbar() {
-  let { user } = useAppSelector((store) => store.UserInfoReducer);
+  const { user } = useAppSelector((store) => store.UserInfoReducer);
   const dispatch = useAppDispatch();
   const handleLogout = () => {
     dispatch(logout());

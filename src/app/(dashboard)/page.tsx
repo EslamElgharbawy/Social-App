@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 export default function Home() {
 
-  let { posts } = useAppSelector((store) => store.postReducer)
+  const { posts } = useAppSelector((store) => store.postReducer)
 
   const dispatch = useAppDispatch()
   const router = useRouter();
@@ -21,7 +21,7 @@ export default function Home() {
       router.push('/Login')
     }
     dispatch(getPosts())
-  }, [])
+  }, [router,dispatch])
 
 
   return <>

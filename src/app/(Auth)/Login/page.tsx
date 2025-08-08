@@ -134,7 +134,7 @@ export default function Login() {
 
           {/* Signup prompt */}
           <Typography align="center" sx={{ color: "#4B5669", fontSize: 14 }}>
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Typography
               component="span"
               sx={{

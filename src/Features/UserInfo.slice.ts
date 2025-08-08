@@ -1,4 +1,5 @@
-import { UserInfoState } from "@/types/UserInfo.type";
+import { RootStore } from "@/store/store";
+import { LoggedInUser, UserInfoState } from "@/types/UserInfo.type";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -6,10 +7,10 @@ const initialState: UserInfoState = {
   user: null,
 };
 
-export const geUserInfo = createAsyncThunk(
+export const geUserInfo = createAsyncThunk<{ user: LoggedInUser }, void, { state: RootStore }>(
   "User/getUserInfo",
   async (_, { getState }) => {
-    const state: any = getState();
+    const state = getState();
     const token = state.userReducer.token;
 
     const options = {
@@ -19,11 +20,10 @@ export const geUserInfo = createAsyncThunk(
         token,
       },
     };
-    let { data } = await axios.request(options);
+    const { data } = await axios.request(options);
     return data;
   }
 );
-
 
 const UserInfoSlice = createSlice({
   name: "UserInfo",

@@ -33,7 +33,7 @@ export default function CommentCard({
           token,
         },
       };
-      let { data } = await axios.request(options);
+      const { data } = await axios.request(options);
       if (data.message === "success") {
         toast.success("Comment has been deleted");
          if (onCommentDeleted) {
