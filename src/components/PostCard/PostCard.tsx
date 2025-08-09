@@ -1,3 +1,4 @@
+'use client'
 import commentImage from "@/assets/images/Comment.svg";
 import LikeImage from "@/assets/images/Like.svg";
 import { getMyPosts, getPosts } from "@/Features/posts.slice";
@@ -23,7 +24,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import React, { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import CommentCard from "../CommentCard/CommentCard";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 dayjs.extend(relativeTime);
 
 const PostCard = ({
@@ -126,7 +127,7 @@ const PostCard = ({
 const post_Id= localPostInfo._id
   const handleShowMore = (post_Id: string) => {
   console.log("Navigating to post with ID:", post_Id);
-  router.push(`/posts/${post_Id}`);
+  router.push(`/Post/${post_Id}`);
 };
 
   return (
