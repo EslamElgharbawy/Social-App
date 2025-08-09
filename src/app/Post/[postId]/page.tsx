@@ -19,12 +19,20 @@ export default function Post({
   const { postId } = use(params);
   const dispatch = useAppDispatch();
   const { postDetails } = useAppSelector((store) => store.postReducer);
+
+  console.log("URL Param postId:", postId); // ✅ نشوف جاي ولا لأ
+  console.log("Redux postDetails before fetch:", postDetails);
   useEffect(() => {
     const token = localStorage.getItem("token");
     dispatch(setToken(token));
     dispatch(geUserInfo());
     dispatch(getPostDetails(postId));
-  }, [dispatch,postId]);
+    if (postId) {
+      dispatch(getPostDetails(postId)).then((action) => {
+        console.log("API response payload:", action.payload); // ✅ البيانات اللي راجعة
+      });
+    } // ✅ البيانات اللي راجعة
+  }, [dispatch, postId]);
   return (
     <>
       <Navbar />
@@ -45,7 +53,11 @@ export default function Post({
           {/* Main Content */}
           <Grid size={{ xs: 12, xl: 6 }}>
             {postDetails ? (
-              <PostCard key={postDetails._id} postInfo={postDetails} ShowAllComments />
+              <PostCard
+                key={postDetails._id}
+                postInfo={postDetails}
+                ShowAllComments
+              />
             ) : (
               <Loading />
             )}

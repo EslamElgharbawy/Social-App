@@ -23,6 +23,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import React, { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import CommentCard from "../CommentCard/CommentCard";
+import { useRouter } from "next/router";
 dayjs.extend(relativeTime);
 
 const PostCard = ({
@@ -32,6 +33,7 @@ const PostCard = ({
   postInfo: Post;
   ShowAllComments?: boolean;
 }) => {
+  const router = useRouter()
   const [localPostInfo, setLocalPostInfo] = useState(postInfo);
   const [InValue, setInValue] = useState(false);
   const dispatch = useAppDispatch();
@@ -121,8 +123,11 @@ const PostCard = ({
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  
+const post_Id= localPostInfo._id
+  const handleShowMore = (post_Id: string) => {
+  console.log("Navigating to post with ID:", post_Id);
+  router.push(`/posts/${post_Id}`);
+};
 
   return (
     <Box
@@ -377,7 +382,7 @@ const PostCard = ({
             <>
               {/* More Comments*/}
               <Button
-                href={`/Post/${localPostInfo._id}`}
+                onClick={()=>{handleShowMore(post_Id)}}
                 variant="contained"
                 sx={{ my: 1, mx: "auto", width: "100%" }}
               >
