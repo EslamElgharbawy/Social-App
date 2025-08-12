@@ -20,7 +20,7 @@ export default function Post({
   const dispatch = useAppDispatch();
   const { postDetails } = useAppSelector((store) => store.postReducer);
 
-  console.log("URL Param postId:", postId); // ✅ نشوف جاي ولا لأ
+  console.log("URL Param postId:", postId); // ✅ نشوف جاي ولا لأ``
   console.log("Redux postDetails before fetch:", postDetails);
   useEffect(() => {
     const token = localStorage.getItem("token");

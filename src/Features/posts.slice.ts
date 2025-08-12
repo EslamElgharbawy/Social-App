@@ -20,16 +20,20 @@ export const getPosts = createAsyncThunk<Post[], void, { state: RootStore }>(
   "posts/getPosts",
   async (_, { getState }) => {
     const token = getToken(getState);
+    const limit = 50;
 
-    const options = {
-      url: "https://linked-posts.routemisr.com/posts?limit=50&page=100",
-      method: "GET",
-      headers: {
-        token,
-      },
-    };
-    const { data } = await axios.request(options);
-    return data.posts;
+    const firstReq = await axios.get(
+      `https://linked-posts.routemisr.com/posts?limit=${limit}&page=1`,
+      { headers: { token } }
+    );
+
+    const totalPages = firstReq.data.paginationInfo.numberOfPages; 
+
+    const lastReq = await axios.get(
+      `https://linked-posts.routemisr.com/posts?limit=${limit}&page=${totalPages}`,
+      { headers: { token } }
+    );
+    return lastReq.data.posts;
   }
 );
 

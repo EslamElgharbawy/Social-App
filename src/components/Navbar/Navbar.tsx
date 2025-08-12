@@ -63,12 +63,11 @@ export default function Navbar() {
               fontWeight={600}
               fontSize={18}
               sx={{
-                fontFamily: "Inter, sans-serif",
                 textTransform: "initial",
                 pr: 1,
               }}
             >
-              logout
+              Logout
             </Typography>
             <Box
               sx={{
