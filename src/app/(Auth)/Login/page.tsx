@@ -152,7 +152,7 @@ export default function LoginPage() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            mb:2,
+            mb: 2,
             gap: 1,
           }}
         >
@@ -263,8 +263,8 @@ export default function LoginPage() {
           <Typography
             component="span"
             sx={{
-              color: "#0C1024",
-              fontWeight: 500,
+              color: "#3971FF",
+              fontWeight: 800,
               cursor: "pointer",
               textDecoration: "underline",
               ml: 0.5,

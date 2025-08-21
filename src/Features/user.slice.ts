@@ -62,7 +62,7 @@ const userSlice = createSlice({
       const token = action.payload.token;
       state.token = token;
       localStorage.setItem("token", token);
-      toast.success("Welcome back!", { duration: 3000 });
+      toast.success("Welcome back!", { position: "top-right", duration: 3000 });
     });
 
     builder.addCase(login.rejected, () => {
