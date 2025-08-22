@@ -63,12 +63,12 @@ export default function SignUp() {
         {/* Left blue section */}
         <Box
           sx={{
-            flex:1,
+            flex: 1,
             alignSelf: "stretch",
-            py: 20,
+            p: { lg: 5, xl: 20 },
             bgcolor: "#3971FF",
             borderTopRightRadius: 50,
-            display: { xs: "none", xl: "flex" },
+            display: { xs: "none", lg: "flex" },
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
@@ -88,7 +88,7 @@ export default function SignUp() {
               height: "100%",
               top: 0,
               left: 0,
-              opacity: 0.3,
+              opacity: 0.5,
               objectFit: "cover",
             }}
           />
@@ -109,7 +109,7 @@ export default function SignUp() {
                 lineHeight: 1.2,
                 textAlign: "center",
                 whiteSpace: "pre-line",
-                fontSize: 45,
+                fontSize: { lg: 29, xl: 43 },
               }}
             >
               {"Let's make every day\nMeaningful together."}
@@ -120,7 +120,7 @@ export default function SignUp() {
                 color: "white",
                 fontWeight: 500,
                 lineHeight: 1.2,
-                fontSize: 16,
+                fontSize: { lg: 14, xl: 16 },
                 textAlign: "center",
               }}
             >
@@ -129,281 +129,290 @@ export default function SignUp() {
           </Box>
         </Box>
 
-      {/* Right white section */}
+        {/* Right white section */}
         <Box
           sx={{
-            width: "50%",
+            flex: 1,
+            alignSelf: "stretch",
             display: "flex",
             flexDirection: "column",
-            justifyContent: "flex-start",
-            p: 20,
+            justifyContent: { xs: "center", xl: "flex-start" },
+            alignItems: "center",
+            p: { xs: 3, sm: 5, md: 8, xl: 20 },
             gap: 2,
           }}
         >
-          {/* Logo */}
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              mb: 3,
-              gap: 1,
-            }}
-          >
+          <Box sx={{ width: "100%", maxWidth: { xs: 300, sm: 500} }}>
+            {/* Logo */}
             <Box
-              component="img"
-              src={"/Vector.svg"}
-              alt="Logo"
               sx={{
-                width: 40,
-                height: 40,
-              }}
-            ></Box>
-            <Typography sx={{ fontSize: 25, fontWeight: 1000 }}>
-              Social
-            </Typography>
-          </Box>
-
-          {/* Heading and subheading */}
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              mb: 2,
-              gap: 1,
-            }}
-          >
-            <Typography
-              variant="h4"
-              sx={{
-                color: "#171717",
-                fontWeight: 700,
-                fontSize: "32px",
-                lineHeight: 1.2,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                mb: { xs: 2, md: 3 },
+                gap: 1,
               }}
             >
-              Create Your Account
-            </Typography>
-            <Typography
-              variant="body1"
+              <Box
+                component="img"
+                src={"/Vector.svg"}
+                alt="Logo"
+                sx={{
+                  width: { xs: 30, md: 40 },
+                  height: { xs: 30, md: 40 },
+                }}
+              ></Box>
+              <Typography
+                sx={{ fontSize: { xs: 20, md: 25 }, fontWeight: 1000 }}
+              >
+                Social
+              </Typography>
+            </Box>
+
+            {/* Heading and subheading */}
+            <Box
               sx={{
-                color: "#525252",
-                fontWeight: 400,
-                fontSize: "16px",
-                lineHeight: "1.6",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                mb: 2,
+                gap: 1,
               }}
             >
-              Join us and start your journey today.
-            </Typography>
-          </Box>
-
-          {/* Form Fields */}
-          <form
-            onSubmit={formik.handleSubmit}
-            style={{ display: "flex", flexWrap: "wrap", gap: 20 }}
-          >
-            {/* Name field */}
-            <Box sx={{ width: "100%" }}>
               <Typography
-                variant="subtitle2"
+                variant="h4"
                 sx={{
-                  color: "#262626",
-                  fontWeight: 600,
-                  fontSize: "1rem",
-                  mb: 1,
+                  color: "#171717",
+                  fontWeight: 700,
+                  fontSize: { xs: "25px", md: "28px", lg: "30", xl: "32px" },
+                  lineHeight: 1.2,
                 }}
               >
-                Name
+                Create Your Account
               </Typography>
-              <TextField
-                label="Name"
-                fullWidth
-                size="small"
-                type="text"
-                name="name"
-                value={formik.values.name}
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-              />
+              <Typography
+                variant="body1"
+                sx={{
+                  color: "#525252",
+                  fontWeight: 400,
+                  fontSize: { xs: "13px", md: "14px", xl: "16px" },
+                  lineHeight: "1.6",
+                }}
+              >
+                Join us and start your journey today.
+              </Typography>
             </Box>
 
-            {/* Email field */}
-            <Box sx={{ width: "100%" }}>
-              <Typography
-                variant="subtitle2"
-                sx={{
-                  color: "#262626",
-                  fontWeight: 600,
-                  fontSize: "1rem",
-                  mb: 1,
-                }}
-              >
-                Email
-              </Typography>
-              <TextField
-                label="Email"
-                fullWidth
-                size="small"
-                type="email"
-                name="email"
-                value={formik.values.email}
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-              />
-            </Box>
+            {/* Form Fields */}
+            <form
+              onSubmit={formik.handleSubmit}
+              style={{ display: "flex", flexWrap: "wrap", gap: 20 }}
+            >
+              {/* Name field */}
+              <Box sx={{ width: "100%" }}>
+                <Typography
+                  variant="subtitle2"
+                  sx={{
+                    color: "#262626",
+                    fontWeight: 600,
+                    fontSize: "1rem",
+                    mb: 1,
+                  }}
+                >
+                  Name
+                </Typography>
+                <TextField
+                  label="Name"
+                  fullWidth
+                  size="small"
+                  type="text"
+                  name="name"
+                  value={formik.values.name}
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                />
+              </Box>
 
-            {/* Password field */}
-            <Box sx={{ width: "100%" }}>
-              <Typography
-                variant="subtitle2"
-                sx={{
-                  color: "#262626",
-                  fontWeight: 600,
-                  fontSize: "1rem",
-                  mb: 1,
-                }}
-              >
-                Password
-              </Typography>
-              <TextField
-                label="Password"
-                type="password"
-                fullWidth
-                size="small"
-                name="password"
-                value={formik.values.password}
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-              />
-            </Box>
+              {/* Email field */}
+              <Box sx={{ width: "100%" }}>
+                <Typography
+                  variant="subtitle2"
+                  sx={{
+                    color: "#262626",
+                    fontWeight: 600,
+                    fontSize: "1rem",
+                    mb: 1,
+                  }}
+                >
+                  Email
+                </Typography>
+                <TextField
+                  label="Email"
+                  fullWidth
+                  size="small"
+                  type="email"
+                  name="email"
+                  value={formik.values.email}
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                />
+              </Box>
 
-            {/* Confirm Password field */}
-            <Box sx={{ width: "100%" }}>
-              <Typography
-                variant="subtitle2"
-                sx={{
-                  color: "#262626",
-                  fontWeight: 600,
-                  fontSize: "1rem",
-                  mb: 1,
-                }}
-              >
-                Confirm Password
-              </Typography>
-              <TextField
-                label="Confirm Password"
-                fullWidth
-                size="small"
-                type="password"
-                name="rePassword"
-                value={formik.values.rePassword}
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-              />
-            </Box>
+              {/* Password field */}
+              <Box sx={{ width: "100%" }}>
+                <Typography
+                  variant="subtitle2"
+                  sx={{
+                    color: "#262626",
+                    fontWeight: 600,
+                    fontSize: "1rem",
+                    mb: 1,
+                  }}
+                >
+                  Password
+                </Typography>
+                <TextField
+                  label="Password"
+                  type="password"
+                  fullWidth
+                  size="small"
+                  name="password"
+                  value={formik.values.password}
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                />
+              </Box>
 
-            {/* Date Of Birth field */}
-            <Box sx={{ width: "100%" }}>
-              <Typography
-                variant="subtitle2"
-                sx={{
-                  color: "#262626",
-                  fontWeight: 600,
-                  fontSize: "1rem",
-                  mb: 1,
-                }}
-              >
-                Date Of Birth
-              </Typography>
-              <TextField
-                fullWidth
-                size="small"
-                type="date"
-                name="dateOfBirth"
-                value={formik.values.dateOfBirth}
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-              />
-            </Box>
+              {/* Confirm Password field */}
+              <Box sx={{ width: "100%" }}>
+                <Typography
+                  variant="subtitle2"
+                  sx={{
+                    color: "#262626",
+                    fontWeight: 600,
+                    fontSize: "1rem",
+                    mb: 1,
+                  }}
+                >
+                  Confirm Password
+                </Typography>
+                <TextField
+                  label="Confirm Password"
+                  fullWidth
+                  size="small"
+                  type="password"
+                  name="rePassword"
+                  value={formik.values.rePassword}
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                />
+              </Box>
 
-            {/* Gender field */}
-            <Box sx={{ width: "100%" }}>
-              <Typography
-                variant="subtitle2"
-                sx={{
-                  color: "#262626",
-                  fontWeight: 600,
-                  fontSize: "1rem",
-                  mb: 1,
-                }}
-              >
-                Gender
-              </Typography>
-              <TextField
-                fullWidth
-                name="gender"
-                select
-                label="Gender"
-                size="small"
-                value={formik.values.gender}
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-                slotProps={{
-                  select: {
-                    MenuProps: {
-                      disableScrollLock: true,
-                      keepMounted: true,
+              {/* Date Of Birth field */}
+              <Box sx={{ width: "100%" }}>
+                <Typography
+                  variant="subtitle2"
+                  sx={{
+                    color: "#262626",
+                    fontWeight: 600,
+                    fontSize: "1rem",
+                    mb: 1,
+                  }}
+                >
+                  Date Of Birth
+                </Typography>
+                <TextField
+                  fullWidth
+                  size="small"
+                  type="date"
+                  name="dateOfBirth"
+                  value={formik.values.dateOfBirth}
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                />
+              </Box>
+
+              {/* Gender field */}
+              <Box sx={{ width: "100%" }}>
+                <Typography
+                  variant="subtitle2"
+                  sx={{
+                    color: "#262626",
+                    fontWeight: 600,
+                    fontSize: "1rem",
+                    mb: 1,
+                  }}
+                >
+                  Gender
+                </Typography>
+                <TextField
+                  fullWidth
+                  name="gender"
+                  select
+                  label="Gender"
+                  size="small"
+                  value={formik.values.gender}
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  slotProps={{
+                    select: {
+                      MenuProps: {
+                        disableScrollLock: true,
+                        keepMounted: true,
+                      },
                     },
+                  }}
+                >
+                  {currencies.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Box>
+
+              {/* Continue Button */}
+              <Button
+                fullWidth
+                type="submit"
+                sx={{
+                  backgroundColor: "#3971FF",
+                  color: "white",
+                  textTransform: "none",
+                  borderRadius: 1,
+                  height: 44,
+                  transition: "all 0.2s ease",
+                  "&:hover": {
+                    backgroundColor: "#2C5ACC",
                   },
                 }}
               >
-                {currencies.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Box>
+                Continue
+              </Button>
+            </form>
 
-            {/* Continue Button */}
-            <Button
-              fullWidth
-              type="submit"
-              sx={{
-                backgroundColor: "#3971FF",
-                color: "white",
-                textTransform: "none",
-                borderRadius: 1,
-                height: 44,
-                transition: "all 0.2s ease",
-                "&:hover": {
-                  backgroundColor: "#2C5ACC",
-                },
-              }}
-            >
-              Continue
-            </Button>
-          </form>
-
-          {/* Already have account */}
-          <Typography textAlign="center" fontSize={14} color="#4B5669">
-            Have an account?
+            {/* Already have account */}
             <Typography
-              component="span"
-              fontWeight={500}
-              sx={{
-                color: "#3971FF",
-                fontWeight: 800,
-                cursor: "pointer",
-                textDecoration: "underline",
-                ml: 0.5,
-              }}
-              onClick={() => router.push("/Login")}
+              align="center"
+              sx={{ color: "#4B5669", fontSize: { xs: 12, md: 14 }, mt: 3 }}
             >
-              Sign In
+              Have an account?
+              <Typography
+                component="span"
+                fontWeight={500}
+                sx={{
+                  color: "#3971FF",
+                  fontWeight: 800,
+                  cursor: "pointer",
+                  textDecoration: "underline",
+                  ml: 0.5,
+                }}
+                onClick={() => router.push("/Login")}
+              >
+                Sign In
+              </Typography>
             </Typography>
-          </Typography>
+          </Box>
         </Box>
       </Box>
     </>
