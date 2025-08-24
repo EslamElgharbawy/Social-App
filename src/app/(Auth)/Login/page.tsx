@@ -5,7 +5,16 @@ import { useRouter } from "next/navigation";
 import { useFormik } from "formik";
 import { login } from "@/Features/user.slice";
 import { useAppDispatch } from "@/hooks/Store.hooks";
+import { object, string } from "yup";
 export default function LoginPage() {
+  const validationSchema = object({
+    email: string()
+      .email("Invalid email address")
+      .required("Email is required"),
+    password: string()
+      .min(6, "Password must be at least 6 characters")
+      .required("Password is required"),
+  });
   const router = useRouter();
   const dispatsh = useAppDispatch();
   const formik = useFormik({
@@ -13,6 +22,7 @@ export default function LoginPage() {
       email: "",
       password: "",
     },
+    validationSchema,
     onSubmit: (values) => {
       dispatsh(login(values))
         .then((res) => {
@@ -43,9 +53,9 @@ export default function LoginPage() {
       <Box
         sx={{
           display: "flex",
-          flexDirection: { xs: "column", lg: "row" }, // موبايل تحت بعض، ديسكتوب جنب بعض
+          flexDirection: { xs: "column", lg: "row" },
           width: "100%",
-          height: "100vh", // يملأ الشاشة
+          height: "100vh",
         }}
       >
         {/* Left blue section */}
@@ -230,6 +240,16 @@ export default function LoginPage() {
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                 />
+                {formik.errors.email && formik.touched.email && (
+                  <Typography
+                    variant="body2"
+                    color="error"
+                    marginTop={1}
+                    fontWeight={500}
+                  >
+                    {formik.errors.email}
+                  </Typography>
+                )}
               </Box>
 
               {/* Password field */}
@@ -256,6 +276,16 @@ export default function LoginPage() {
                   onChange={formik.handleChange}
                   name="password"
                 />
+                {formik.errors.password && formik.touched.password && (
+                  <Typography
+                    variant="body2"
+                    color="error"
+                    marginTop={1}
+                    fontWeight={500}
+                  >
+                    {formik.errors.password}
+                  </Typography>
+                )}
               </Box>
 
               {/* Sign in button */}

@@ -5,11 +5,41 @@ import { Box, Button, MenuItem, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
 import LoginBackground from "@/assets/images/Backgruond_img.svg";
+import { date, object, ref, string } from "yup";
 
 export default function SignUp() {
+  const PasswordRegex =
+    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/;
   const router = useRouter();
   const dispatsh = useAppDispatch();
 
+  const validationSchema = object({
+    name: string()
+      .min(3, "Name must be at least 3 characters")
+      .required("Name is required"),
+    email: string()
+      .email("Invalid email address")
+      .required("Email is required"),
+    password: string()
+      .min(6, "Password must be at least 6 characters")
+      .required("Password is required")
+      .matches(
+        PasswordRegex,
+        "Password | Minimum eight characters, at least one upper case English letter, one lower case English letter, one number and one special character"
+      ),
+    rePassword: string()
+      .min(6, "Password must be at least 6 characters")
+      .required("Confirm Password is required")
+      .oneOf([ref("password")], "Passwords must match"),
+
+    dateOfBirth: date()
+      .max(new Date(), "Date of birth cannot be in the future")
+      .required("Date of birth is required"),
+
+    gender: string()
+      .oneOf(["male", "female"], "Please select a valid gender")
+      .required("Gender is required"),
+  });
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -19,6 +49,7 @@ export default function SignUp() {
       dateOfBirth: "",
       gender: "",
     },
+    validationSchema,
     onSubmit: (values) => {
       dispatsh(signUp(values))
         .then((res) => {
@@ -142,7 +173,7 @@ export default function SignUp() {
             gap: 2,
           }}
         >
-          <Box sx={{ width: "100%", maxWidth: { xs: 300, sm: 500} }}>
+          <Box sx={{ width: "100%", maxWidth: { xs: 300, sm: 500 } }}>
             {/* Logo */}
             <Box
               sx={{
@@ -231,6 +262,16 @@ export default function SignUp() {
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                 />
+                {formik.errors.name && formik.touched.name && (
+                  <Typography
+                    variant="body2"
+                    color="error"
+                    marginTop={1}
+                    fontWeight={500}
+                  >
+                    {formik.errors.name}
+                  </Typography>
+                )}
               </Box>
 
               {/* Email field */}
@@ -256,6 +297,16 @@ export default function SignUp() {
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                 />
+                {formik.errors.email && formik.touched.email && (
+                  <Typography
+                    variant="body2"
+                    color="error"
+                    marginTop={1}
+                    fontWeight={500}
+                  >
+                    {formik.errors.email}
+                  </Typography>
+                )}
               </Box>
 
               {/* Password field */}
@@ -281,6 +332,16 @@ export default function SignUp() {
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                 />
+                {formik.errors.password && formik.touched.password && (
+                  <Typography
+                    variant="body2"
+                    color="error"
+                    marginTop={1}
+                    fontWeight={500}
+                  >
+                    {formik.errors.password}
+                  </Typography>
+                )}
               </Box>
 
               {/* Confirm Password field */}
@@ -306,6 +367,16 @@ export default function SignUp() {
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                 />
+                {formik.errors.rePassword && formik.touched.rePassword && (
+                  <Typography
+                    variant="body2"
+                    color="error"
+                    marginTop={1}
+                    fontWeight={500}
+                  >
+                    {formik.errors.rePassword}
+                  </Typography>
+                )}
               </Box>
 
               {/* Date Of Birth field */}
@@ -330,6 +401,16 @@ export default function SignUp() {
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                 />
+                {formik.errors.dateOfBirth && formik.touched.dateOfBirth && (
+                  <Typography
+                    variant="body2"
+                    color="error"
+                    marginTop={1}
+                    fontWeight={500}
+                  >
+                    {formik.errors.dateOfBirth}
+                  </Typography>
+                )}
               </Box>
 
               {/* Gender field */}
@@ -369,6 +450,16 @@ export default function SignUp() {
                     </MenuItem>
                   ))}
                 </TextField>
+                {formik.errors.gender && formik.touched.gender && (
+                  <Typography
+                    variant="body2"
+                    color="error"
+                    marginTop={1}
+                    fontWeight={500}
+                  >
+                    {formik.errors.gender}
+                  </Typography>
+                )}
               </Box>
 
               {/* Continue Button */}

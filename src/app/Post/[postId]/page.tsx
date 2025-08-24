@@ -20,7 +20,7 @@ export default function Post({
   const dispatch = useAppDispatch();
   const { postDetails } = useAppSelector((store) => store.postReducer);
 
-  console.log("URL Param postId:", postId); // ✅ نشوف جاي ولا لأ``
+  console.log("URL Param postId:", postId);
   console.log("Redux postDetails before fetch:", postDetails);
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -29,9 +29,9 @@ export default function Post({
     dispatch(getPostDetails(postId));
     if (postId) {
       dispatch(getPostDetails(postId)).then((action) => {
-        console.log("API response payload:", action.payload); // ✅ البيانات اللي راجعة
+        console.log("API response payload:", action.payload); 
       });
-    } // ✅ البيانات اللي راجعة
+    } 
   }, [dispatch, postId]);
   return (
     <>
