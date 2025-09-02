@@ -22,6 +22,7 @@ import {
 import axios from "axios";
 import React, { useEffect, useRef } from "react";
 import toast from "react-hot-toast";
+import Head from "next/head";
 
 export default function Profile() {
   const { user } = useAppSelector((store) => store.UserInfoReducer);
@@ -115,9 +116,23 @@ export default function Profile() {
     if (userId) {
       dispatch(getMyPosts(userId));
     }
-  }, [user,dispatch]);
+  }, [user, dispatch]);
   return (
     <>
+      <Head>
+        <title>Profile</title>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+          name="description"
+          content="This is the profile page of the social app project."
+        />
+        <meta
+          name="keywords"
+          content="social app, profile, react, friends, posts"
+        />
+        <meta name="author" content="Eslam" />
+      </Head>
       <Box
         sx={{
           height: { xs: 215, xl: 233 },

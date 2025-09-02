@@ -1,9 +1,8 @@
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
-import { ThemeProvider } from '@mui/material/styles';
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+import { ThemeProvider } from "@mui/material/styles";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import theme from '../theme';
-
+import theme from "../theme";
 import ReduxProvider from "@/components/ReduxProvider/ReduxProvider";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
@@ -31,15 +30,18 @@ export default function RootLayout({
   return (
     <html>
       <head>
-        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet"></link>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap"
+          rel="stylesheet"
+        ></link>
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <ReduxProvider>
               {children}
-              </ReduxProvider>
-                    <Toaster />
+            </ReduxProvider>
+            <Toaster />
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

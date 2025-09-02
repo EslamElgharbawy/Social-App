@@ -10,6 +10,7 @@ import { setToken } from "@/Features/user.slice";
 import { geUserInfo } from "@/Features/UserInfo.slice";
 import { useAppDispatch, useAppSelector } from "@/hooks/Store.hooks";
 import { Box, Grid } from "@mui/material";
+import Head from "next/head";
 import { use, useEffect } from "react";
 export default function Post({
   params,
@@ -26,15 +27,28 @@ export default function Post({
     const token = localStorage.getItem("token");
     dispatch(setToken(token));
     dispatch(geUserInfo());
-    dispatch(getPostDetails(postId));
     if (postId) {
       dispatch(getPostDetails(postId)).then((action) => {
-        console.log("API response payload:", action.payload); 
+        console.log("API response payload:", action.payload);
       });
-    } 
+    }
   }, [dispatch, postId]);
   return (
     <>
+      <Head>
+        <title>Post/{postDetails?._id}</title>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+          name="description"
+          content="This is the profile page of the social app project."
+        />
+        <meta
+          name="keywords"
+          content="social app, profile, react, friends, posts"
+        />
+        <meta name="author" content="Eslam" />
+      </Head>
       <Navbar />
       <Box
         sx={{
