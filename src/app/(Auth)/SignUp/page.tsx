@@ -81,44 +81,35 @@ export default function SignUp() {
       <Box
         sx={{
           width: "100%",
-          minHeight: "100vh",
-          overflowY: "auto",
-          scrollbarGutter: "stable",
+          height: "100vh", 
+          display: "grid",
+          gridTemplateColumns: { xs: "1fr", lg: "1fr 1fr" }, 
           bgcolor: "#FAFBFF",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          fontFamily: "Pretendard, sans-serif",
         }}
       >
         {/* Left blue section */}
         <Box
           sx={{
-            flex: 1,
-            alignSelf: "stretch",
-            p: { lg: 5, xl: 20 },
+            position: "relative",
             bgcolor: "#3971FF",
-            borderTopRightRadius: 50,
-            display: { xs: "none", lg: "flex" },
-            flexDirection: "column",
+            borderTopRightRadius: { lg: 50, xs: 0 },
+            display: { xs: "none", lg: "flex" }, 
             justifyContent: "center",
             alignItems: "center",
-            gap: 2,
-            position: "relative",
             overflow: "hidden",
+            height: "100vh", 
           }}
         >
-          {/* Background image with opacity */}
+          {/* Background image */}
           <Box
             component="img"
             src={LoginBackground.src}
             alt="Background"
             sx={{
               position: "absolute",
+              inset: 0,
               width: "100%",
               height: "100%",
-              top: 0,
-              left: 0,
               opacity: 0.5,
               objectFit: "cover",
             }}
@@ -127,50 +118,44 @@ export default function SignUp() {
             sx={{
               position: "relative",
               zIndex: 1,
-              display: "flex",
-              flexDirection: "column",
-              gap: 2,
-              alignItems: "center",
+              textAlign: "center",
+              px: 3,
             }}
           >
             <Typography
               sx={{
                 color: "white",
                 fontWeight: 500,
-                lineHeight: 1.2,
-                textAlign: "center",
-                whiteSpace: "pre-line",
                 fontSize: { lg: 29, xl: 43 },
+                lineHeight: 1.2,
+                whiteSpace: "pre-line",
               }}
             >
               {"Let's make every day\nMeaningful together."}
             </Typography>
             <Typography
-              variant="subtitle1"
               sx={{
                 color: "white",
                 fontWeight: 500,
-                lineHeight: 1.2,
                 fontSize: { lg: 14, xl: 16 },
-                textAlign: "center",
+                mt: 2,
               }}
             >
-              &quot;Building meaningful experiences together.&quot;
+              "Building meaningful experiences together."
             </Typography>
           </Box>
         </Box>
 
-        {/* Right white section */}
+        {/* Right white section (form) */}
         <Box
           sx={{
-            flex: 1,
-            alignSelf: "stretch",
             display: "flex",
             flexDirection: "column",
-            justifyContent: { xs: "center", xl: "flex-start" },
+            justifyContent: "flex-start",
             alignItems: "center",
             p: { xs: 3, sm: 5, md: 8, xl: 20 },
-            gap: 2,
+            overflowY: "auto", 
+            height: "100vh", 
           }}
         >
           <Box sx={{ width: "100%", maxWidth: { xs: 300, sm: 500 } }}>
@@ -509,3 +494,4 @@ export default function SignUp() {
     </>
   );
 }
+

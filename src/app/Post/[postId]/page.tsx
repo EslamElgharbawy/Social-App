@@ -9,17 +9,31 @@ import { getPostDetails } from "@/Features/posts.slice";
 import { setToken } from "@/Features/user.slice";
 import { geUserInfo } from "@/Features/UserInfo.slice";
 import { useAppDispatch, useAppSelector } from "@/hooks/Store.hooks";
-import { Box, Grid } from "@mui/material";
+import {
+  Avatar,
+  BottomNavigation,
+  BottomNavigationAction,
+  Box,
+  Grid,
+  Paper,
+} from "@mui/material";
+import HomeIcon from "@mui/icons-material/Home";
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import SendIcon from "/public/Send.svg";
 import Head from "next/head";
+import Image from "next/image";
 import { use, useEffect } from "react";
+import { useRouter } from "next/navigation";
 export default function Post({
   params,
 }: {
   params: Promise<{ postId: string }>;
 }) {
   const { postId } = use(params);
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const { postDetails } = useAppSelector((store) => store.postReducer);
+  const { user } = useAppSelector((store) => store.UserInfoReducer);
 
   console.log("URL Param postId:", postId);
   console.log("Redux postDetails before fetch:", postDetails);
@@ -58,7 +72,7 @@ export default function Post({
           my: { xs: 0 },
         }}
       >
-        <Grid container sx={{ mx: { xs: 1, xl: 5 }, py: 3, my: 8 }}>
+        <Grid container sx={{ mx: { xs: 1, xl: 5 }, py: 3, my: 6 }}>
           {/* Sidebar */}
           <Grid size={3} sx={{ display: { xs: "none", xl: "block" } }}>
             <UserCard />
@@ -84,6 +98,49 @@ export default function Post({
           </Grid>
         </Grid>
       </Box>
+
+      {/* Bottom Navigation */}
+      <Paper
+        sx={{
+          position: "fixed",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          display: { xs: "block", xl: "none" },
+        }}
+        elevation={3}
+      >
+        <BottomNavigation showLabels>
+          <BottomNavigationAction
+            label="Profile"
+            onClick={() => router.push("/Profile")}
+            icon={<Avatar src={user?.photo} sx={{ width: 20, height: 24 }} />}
+          />
+          <BottomNavigationAction
+            label="Alerts"
+            onClick={() => router.push("/Notifications")}
+            icon={<NotificationsNoneIcon sx={{ fontSize: 20 }} />}
+          />
+          <BottomNavigationAction
+            label="Message"
+            icon={
+              <Image
+                src={SendIcon}
+                alt="Send"
+                width={20}
+                height={24}
+                style={{ objectFit: "contain" }}
+              />
+            }
+            onClick={() => router.push("/Messages")}
+          />
+          <BottomNavigationAction
+            label="Home"
+            onClick={() => router.push("/")}
+            icon={<HomeIcon sx={{ fontSize: 20 }} />}
+          />
+        </BottomNavigation>
+      </Paper>
     </>
   );
 }

@@ -21,11 +21,15 @@ import MenuItem from "@mui/material/MenuItem";
 import axios from "axios";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 import React, { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import CommentCard from "../CommentCard/CommentCard";
 import { useRouter } from "next/navigation";
 dayjs.extend(relativeTime);
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const PostCard = ({
   postInfo,
@@ -182,7 +186,7 @@ const PostCard = ({
                 color: "#707988",
               }}
             >
-              {dayjs(postInfo.createdAt).fromNow()}
+              {dayjs.utc(postInfo.createdAt).tz(dayjs.tz.guess()).fromNow()}
             </Typography>
           </Box>
         </Box>
@@ -280,7 +284,7 @@ const PostCard = ({
                 alt="Post image"
                 sx={{
                   width: { xs: "100%", md: 700 },
-                  height:"auto",
+                  height: "auto",
                   borderRadius: 2,
                   objectFit: "cover",
                   objectPosition: "center",
