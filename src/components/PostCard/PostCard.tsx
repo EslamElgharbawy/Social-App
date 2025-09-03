@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import commentImage from "@/assets/images/Comment.svg";
 import LikeImage from "@/assets/images/Like.svg";
 import { getMyPosts, getPosts } from "@/Features/posts.slice";
@@ -34,7 +34,7 @@ const PostCard = ({
   postInfo: Post;
   ShowAllComments?: boolean;
 }) => {
-  const router = useRouter()
+  const router = useRouter();
   const [localPostInfo, setLocalPostInfo] = useState(postInfo);
   const [InValue, setInValue] = useState(false);
   const dispatch = useAppDispatch();
@@ -124,11 +124,11 @@ const PostCard = ({
   const handleClose = () => {
     setAnchorEl(null);
   };
-const post_Id= localPostInfo._id
+  const post_Id = localPostInfo._id;
   const handleShowMore = (post_Id: string) => {
-  console.log("Navigating to post with ID:", post_Id);
-  router.push(`/Post/${post_Id}`);
-};
+    console.log("Navigating to post with ID:", post_Id);
+    router.push(`/Post/${post_Id}`);
+  };
 
   return (
     <Box
@@ -138,7 +138,7 @@ const post_Id= localPostInfo._id
         backgroundColor: "white",
         overflow: "hidden",
         borderRadius: 2,
-        border: "1px solid #ECF0F5",
+        border: "2px solid #ECF0F5",
         fontFamily: "Inter, sans-serif",
         display: "flex",
         flexDirection: "column",
@@ -280,9 +280,10 @@ const post_Id= localPostInfo._id
                 alt="Post image"
                 sx={{
                   width: { xs: "100%", md: 700 },
-                  height: { xs: "100%", md: 500 },
+                  height:"auto",
                   borderRadius: 2,
                   objectFit: "cover",
+                  objectPosition: "center",
                 }}
               />
             </Box>
@@ -367,13 +368,20 @@ const post_Id= localPostInfo._id
           {localPostInfo.comments &&
             localPostInfo.comments.length > 0 &&
             !ShowAllComments && (
-              <CommentCard CommentInfo={localPostInfo.comments[0]} onCommentDeleted={getComments}/>
+              <CommentCard
+                CommentInfo={localPostInfo.comments[0]}
+                onCommentDeleted={getComments}
+              />
             )}
           {localPostInfo.comments &&
             localPostInfo.comments.length > 1 &&
             ShowAllComments &&
             localPostInfo.comments.map((comment) => (
-              <CommentCard key={comment._id} CommentInfo={comment} onCommentDeleted={getComments}/>
+              <CommentCard
+                key={comment._id}
+                CommentInfo={comment}
+                onCommentDeleted={getComments}
+              />
             ))}
         </Box>
 
@@ -383,7 +391,9 @@ const post_Id= localPostInfo._id
             <>
               {/* More Comments*/}
               <Button
-                onClick={()=>{handleShowMore(post_Id)}}
+                onClick={() => {
+                  handleShowMore(post_Id);
+                }}
                 variant="contained"
                 sx={{ my: 1, mx: "auto", width: "100%" }}
               >

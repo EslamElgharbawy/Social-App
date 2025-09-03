@@ -3,8 +3,6 @@
 import {
   Avatar,
   Box,
-  Button,
-  Divider,
   IconButton,
   InputBase,
   Stack,
@@ -13,7 +11,6 @@ import {
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import SendIcon from "@mui/icons-material/Send";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-import NewMessage from "@/assets/images/Write.svg";
 import BessieCooper from "@/assets/images/Img.jpg";
 import ThomasBaker from "@/assets/images/Img2.png";
 import DanielBrown from "@/assets/images/Img3.jpg";
@@ -53,7 +50,7 @@ export default function Messages() {
           bgcolor: "white",
           overflow: "hidden",
           borderRadius: 2,
-          border: "1px solid #ECF0F5",
+          border: "2px solid #ECF0F5",
           display: "flex",
           flexDirection: { xs: "column", xl: "row" },
         }}
@@ -160,20 +157,6 @@ export default function Messages() {
               </Stack>
             ))}
 
-            <Divider sx={{ borderColor: "#ECF0F5", my: 1 }} />
-            <Button
-              fullWidth
-              sx={{ px: 3, py: 1.5, justifyContent: "flex-start" }}
-            >
-              <Box
-                component="img"
-                src={NewMessage.src}
-                sx={{ width: 20, mr: 2 }}
-              />
-              <Typography fontSize={14} fontWeight={400} color="#27364B">
-                New Message
-              </Typography>
-            </Button>
           </Stack>
         </Box>
 

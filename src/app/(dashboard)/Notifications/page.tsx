@@ -1,6 +1,6 @@
 import Footer from "@/components/Footer/Footer";
 import SuggestedFriendsCard from "@/components/SuggestedFriends/SuggestedFriends";
-import { Avatar, Box, Divider, Stack, Typography, Paper } from "@mui/material";
+import { Avatar, Box, Divider, Stack, Typography } from "@mui/material";
 import BessieCooper from "@/assets/images/Img.jpg";
 import SamuelLee from "@/assets/images/Img5.jpg";
 import JosephRodriguez from "@/assets/images/Img6.jpg";
@@ -54,12 +54,12 @@ export default function Notifications() {
           }}
         >
           <Box>
-            <Paper
+            <Box
               sx={{
                 width: { xs: "100%", lg: 650 },
                 height: 310,
                 borderRadius: 2,
-                border: "1px solid #ECF0F5",
+                border: "2px solid #ECF0F5",
                 bgcolor: "white",
                 overflow: "hidden",
                 position: "relative",
@@ -71,11 +71,10 @@ export default function Notifications() {
                 sx={{
                   position: "absolute",
                   top: 24,
-                  left: 32,
+                  left: 20,
                   fontSize: { xs: 14, sm: 15, md: 16 },
                   fontWeight: 500,
                   color: "#0C1024",
-                  fontFamily: "Inter, sans-serif",
                 }}
               >
                 Notifications
@@ -96,11 +95,9 @@ export default function Notifications() {
                 sx={{
                   position: "absolute",
                   top: 83,
-                  left: 1,
                   width: "100%",
                   display: "flex",
                   flexDirection: "column",
-                  alignItems: "flex-end",
                 }}
               >
                 {notifications.map((noti, index) => (
@@ -163,7 +160,7 @@ export default function Notifications() {
                   </Stack>
                 ))}
               </Box>
-            </Paper>
+            </Box>
           </Box>
 
           <Box

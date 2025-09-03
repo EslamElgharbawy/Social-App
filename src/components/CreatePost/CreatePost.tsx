@@ -77,7 +77,7 @@ const CreatePost = () => {
         backgroundColor: "white",
         overflow: "hidden",
         borderRadius: 2,
-        border: "1px solid #ECF0F5",
+        border: "2px solid #ECF0F5",
         display: "inline-flex",
         flexDirection: "column",
         gap: 2,

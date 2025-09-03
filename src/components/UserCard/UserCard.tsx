@@ -36,7 +36,7 @@ const UserCard = () => {
         height: 434,
         borderRadius: 2,
         overflow: 'hidden',
-        border: '1px solid #ECF0F5',
+        border: '2px solid #ECF0F5',
         bgcolor: 'white',
         position: 'fixed',
       }}

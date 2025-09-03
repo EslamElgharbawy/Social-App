@@ -22,14 +22,14 @@ const SuggestedFriendsCard = ({ fixed = false }: { fixed?: boolean }) => {
 
   return (
     <Box>
-      <Paper
+      <Box
         sx={{
           width: 320,
           height: 435,
           position: fixed ? 'fixed' : 'relative',
           overflow: 'hidden',
           borderRadius: 2,
-          border: '1px solid #ECF0F5',
+          border: '2px solid #ECF0F5',
           backgroundColor: 'white',
           mb: 5
         }}
@@ -39,7 +39,7 @@ const SuggestedFriendsCard = ({ fixed = false }: { fixed?: boolean }) => {
           sx={{
             position: 'absolute',
             top: 24,
-            left: 40,
+            left: 30,
             fontSize: 16,
             fontWeight: 500,
             color: '#0C1024',
@@ -117,7 +117,7 @@ const SuggestedFriendsCard = ({ fixed = false }: { fixed?: boolean }) => {
             </IconButton>
           </Box>
         ))}
-      </Paper>
+      </Box>
     </Box>
   );
 };
