@@ -4,7 +4,6 @@ import {
   Typography,
   Avatar,
   IconButton,
-  Paper,
 } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import OliviaAnderson from '@/assets/images/Img8.jpg'

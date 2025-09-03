@@ -2,9 +2,14 @@
 
 Social App is a modern social media web application that allows users to create and view posts, follow friends, and manage notifications and messages — all in a clean and responsive user interface.
 
+
+
+
  ## 🚀 Live Demo
 
 👉 [https://social-app-seven-kappa.vercel.app/]
+
+
 
 
 ## 🔥 Features
@@ -24,6 +29,8 @@ Social App is a modern social media web application that allows users to create 
 ✅ Form validation with Formik + Yup
 
 
+
+
 ## 🛠️ Tech Stack
 
 - Next.js 15 : React framework for SSR (Server-Side Rendering) and SSG (Static Site Generation)
@@ -41,15 +48,19 @@ Social App is a modern social media web application that allows users to create 
 - React Hot Toast : Interactive notifications
 
 
+
+
 ## 📸 Screenshots
 
-![Home Page](./public/Screenshot-2025-09-03-042409.png)
+![Home Page](./public/Screenshot%202025-09-03%20042409.png)
 
-![Profile Page](./public/Screenshot-2025-09-03-042526.png)
+![Profile Page](./public/Screenshot%202025-09-03%20042526.png)
 
-![Notifications](./public/Screenshot-2025-09-03-042543.png)
+![Notifications](./public/Screenshot%202025-09-03%20042543.png)
 
-![Messages](./public/Screenshot-2025-09-03-042615.png)
+![Messages](./public/Screenshot%202025-09-03%20042615.png)
+
+
 
 
 ## 📦 Installation
