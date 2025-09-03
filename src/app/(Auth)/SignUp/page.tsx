@@ -141,7 +141,7 @@ export default function SignUp() {
                 mt: 2,
               }}
             >
-              "Building meaningful experiences together."
+              &quot;Building meaningful experiences together.&quot;
             </Typography>
           </Box>
         </Box>

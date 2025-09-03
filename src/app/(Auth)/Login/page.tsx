@@ -100,7 +100,7 @@ export default function LoginPage() {
                 mt: 2,
               }}
             >
-              "Building meaningful experiences together."
+              &quot;Building meaningful experiences together.&quot;
             </Typography>
         </Box>
       </Box>
